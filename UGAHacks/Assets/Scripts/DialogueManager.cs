@@ -6,122 +6,104 @@ using System.Collections.Generic;
 
 public class DialogueManager : MonoBehaviour
 {
-    [Header("Ink Setup")]
-    public TextAsset inkJSONAsset; 
+    [Header("Ink Story")]
+    public TextAsset inkJSON;
     private Story story;
 
-    [Header("UI Connections")]
-    public TextMeshProUGUI dialogueText;
+    [Header("External Connections")]
+    public GameManager gameManager;
+
+    [Header("UI Components")]
+    public TextMeshProUGUI storyText; 
     
-    [Header("Fixed Choice Buttons")]
-    // Drag your 2 existing scene buttons here
-    public Button choice1Button;
-    public Button choice2Button;
-    private TextMeshProUGUI choice1Text;
-    private TextMeshProUGUI choice2Text;
+    // THE NEW WAY: Drag your 2 actual buttons here
+    public Button choiceButton1; 
+    public Button choiceButton2;
 
-    [Header("Game Connections")]
-    public SpriteRenderer patientRenderer;
-    public Sprite sickSprite;
-    public Sprite curedSprite;
-    public Sprite frozenSprite;
-    public ParticleSystem iceParticles;
-    public ParticleSystem windParticles;
-
-    void Awake()
-    {
-        // Cache the text components from the assigned buttons
-        choice1Text = choice1Button.GetComponentInChildren<TextMeshProUGUI>();
-        choice2Text = choice2Button.GetComponentInChildren<TextMeshProUGUI>();
-
-        // Add listeners once at the start
-        choice1Button.onClick.AddListener(() => OnChoiceSelected(0));
-        choice2Button.onClick.AddListener(() => OnChoiceSelected(1));
-    }
+    // THE INVISIBLE BUTTON: Drag a button that covers the screen here
+    // (This is needed to click through normal text lines)
+    public Button continueButton; 
 
     void Start()
     {
-        if (inkJSONAsset != null)
-        {
-            StartStory();
-        }
+        StartStory();
     }
 
     void StartStory()
     {
-        story = new Story(inkJSONAsset.text);
-        
-        // BIND FUNCTIONS
-        story.BindExternalFunction("CastSpell", (string spell) => {
-            if(spell == "ice" && iceParticles != null) iceParticles.Play();
-            if(spell == "wind" && windParticles != null) windParticles.Play();
-        });
+        story = new Story(inkJSON.text);
 
-        story.BindExternalFunction("ChangeSprite", (string state) => {
-            if(state == "sick") patientRenderer.sprite = sickSprite;
-            if(state == "cured") patientRenderer.sprite = curedSprite;
-            if(state == "frozen") patientRenderer.sprite = frozenSprite;
-        });
+        // --- BIND FUNCTIONS ---
+        story.BindExternalFunction("Spawn", (string name) => gameManager.SpawnPatient(name));
+        story.BindExternalFunction("ChangeState", (string state) => gameManager.ChangePatientState(state));
+        story.BindExternalFunction("PlaySound", (string soundName) => gameManager.PlaySound(soundName));
+
+        // Setup the Continue Button
+        continueButton.onClick.RemoveAllListeners();
+        continueButton.onClick.AddListener(() => RefreshUI());
 
         RefreshUI();
     }
 
     void RefreshUI()
     {
-        // 1. Load the text until the next choice point
+        // 1. RESET BUTTONS (Turn them off and clear old clicks)
+        choiceButton1.gameObject.SetActive(false);
+        choiceButton1.onClick.RemoveAllListeners();
+        
+        choiceButton2.gameObject.SetActive(false);
+        choiceButton2.onClick.RemoveAllListeners();
+
+        // 2. READ NEXT LINE (If available)
         if (story.canContinue)
         {
-            dialogueText.text = story.ContinueMaximally();
-            HandleTags(story.currentTags);
+            string text = story.Continue();
+            storyText.text = text;
+            
+            // Check for tags
+            foreach(var tag in story.currentTags)
+            {
+                if(tag.Contains("spawn:skeleton")) gameManager.SpawnPatient("skeleton");
+                if(tag.Contains("spawn:swampy")) gameManager.SpawnPatient("swampy");
+            }
         }
 
-        // 2. Handle the 2 Fixed Buttons
-        if (story.currentChoices.Count >= 2)
+        // 3. SHOW CHOICES OR SHOW CONTINUE BUTTON
+        if (story.currentChoices.Count > 0)
         {
-            // Show buttons and set text
-            choice1Button.gameObject.SetActive(true);
-            choice2Button.gameObject.SetActive(true);
+            // We have choices: Hide the "Next" button so they MUST pick an option
+            continueButton.gameObject.SetActive(false);
 
-            choice1Text.text = story.currentChoices[0].text;
-            choice2Text.text = story.currentChoices[1].text;
-        }
-        else if (story.currentChoices.Count == 1)
-        {
-            // Only one choice available
-            choice1Button.gameObject.SetActive(true);
-            choice2Button.gameObject.SetActive(false);
-            choice1Text.text = story.currentChoices[0].text;
+            // --- SETUP BUTTON 1 ---
+            if (story.currentChoices.Count >= 1)
+            {
+                var choice = story.currentChoices[0];
+                choiceButton1.gameObject.SetActive(true); // Turn it on
+                choiceButton1.GetComponentInChildren<TextMeshProUGUI>().text = choice.text;
+                
+                choiceButton1.onClick.AddListener(() => {
+                    story.ChooseChoiceIndex(choice.index);
+                    RefreshUI();
+                });
+            }
+
+            // --- SETUP BUTTON 2 ---
+            if (story.currentChoices.Count >= 2)
+            {
+                var choice = story.currentChoices[1];
+                choiceButton2.gameObject.SetActive(true); // Turn it on
+                choiceButton2.GetComponentInChildren<TextMeshProUGUI>().text = choice.text;
+                
+                choiceButton2.onClick.AddListener(() => {
+                    story.ChooseChoiceIndex(choice.index);
+                    RefreshUI();
+                });
+            }
         }
         else
         {
-            // No choices (End of story or middle of dialogue)
-            choice1Button.gameObject.SetActive(false);
-            choice2Button.gameObject.SetActive(false);
-        }
-    }
-
-    void OnChoiceSelected(int index)
-    {
-        story.ChooseChoiceIndex(index);
-        RefreshUI();
-    }
-
-    void HandleTags(List<string> tags)
-    {
-        foreach (string tag in tags)
-        {
-            string[] splitTag = tag.Split(':');
-            if (splitTag.Length != 2) continue;
-
-            string key = splitTag[0].Trim();
-            string value = splitTag[1].Trim();
-
-            if (key == "sprite")
-            {
-                if (value == "sick") patientRenderer.sprite = sickSprite;
-                if (value == "cured") patientRenderer.sprite = curedSprite;
-                if (value == "frozen") patientRenderer.sprite = frozenSprite;
-            }
+            // No choices? Show the invisible "Next" button so clicking anywhere advances text
+            continueButton.gameObject.SetActive(true);
         }
     }
 }
