@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
         if (resultsPanel != null)
             resultsPanel.SetActive(false);
 
-        SceneManager gm = SceneManager.Instance;
+        SceneManager1 gm = SceneManager1.Instance;
         gm.OnScoreChanged += UpdateScore;
         gm.OnNoteJudged += ShowJudgement;
         gm.OnSongFinished += ShowResults;
@@ -82,15 +82,15 @@ public class UIManager : MonoBehaviour
     {
         if (resultsPanel == null) return;
         resultsPanel.SetActive(true);
-        finalScoreText.text = $"Final Score: {SceneManager.Instance.Score:N0}";
-        maxComboText.text = $"Max Combo: {SceneManager.Instance.MaxCombo}x";
+        finalScoreText.text = $"Final Score: {SceneManager1.Instance.Score:N0}";
+        maxComboText.text = $"Max Combo: {SceneManager1.Instance.MaxCombo}x";
     }
 
     void OnDestroy()
     {
-        if (SceneManager.Instance == null) return;
-        SceneManager.Instance.OnScoreChanged -= UpdateScore;
-        SceneManager.Instance.OnNoteJudged -= ShowJudgement;
-        SceneManager.Instance.OnSongFinished -= ShowResults;
+        if (SceneManager1.Instance == null) return;
+        SceneManager1.Instance.OnScoreChanged -= UpdateScore;
+        SceneManager1.Instance.OnNoteJudged -= ShowJudgement;
+        SceneManager1.Instance.OnSongFinished -= ShowResults;
     }
 }

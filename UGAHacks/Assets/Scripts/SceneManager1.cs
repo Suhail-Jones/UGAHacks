@@ -1,9 +1,9 @@
 using UnityEngine;
 using System;
 
-public class SceneManager : MonoBehaviour
+public class SceneManager1 : MonoBehaviour
 {
-    public static SceneManager Instance { get; private set; }
+    public static SceneManager1 Instance { get; private set; }
 
     [Header("References")]
     public BeatMap currentBeatMap;

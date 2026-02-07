@@ -24,14 +24,14 @@ public class Note : MonoBehaviour
     {
         if (!IsActive) return;
 
-        float songTime = SceneManager.Instance.GetCurrentSongTime();
+        float songTime = SceneManager1.Instance.GetCurrentSongTime();
         float elapsed = songTime - spawnSongTime;
         float t = elapsed / travelTime;
 
         transform.position = Vector3.Lerp(startPos, endPos, t);
 
         // If the note has gone well past the hit zone, count as miss
-        if (t > 1f + (SceneManager.Instance.missWindow / travelTime) * 2f)
+        if (t > 1f + (SceneManager1.Instance.missWindow / travelTime) * 2f)
         {
             Miss();
         }
@@ -51,7 +51,7 @@ public class Note : MonoBehaviour
         if (!IsActive) return;
         IsActive = false;
 
-        SceneManager.Instance.RegisterMiss();
+        SceneManager1.Instance.RegisterMiss();
 
         // Fade out then destroy
         Destroy(gameObject, 0.3f);

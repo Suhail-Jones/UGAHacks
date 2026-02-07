@@ -25,7 +25,7 @@ public class NoteSpawner : MonoBehaviour
 
     void Start()
     {
-        beatMap = SceneManager.Instance.currentBeatMap;
+        beatMap = SceneManager1.Instance.currentBeatMap;
         nextNoteIndex = 0;
         finished = false;
     }
@@ -34,7 +34,7 @@ public class NoteSpawner : MonoBehaviour
     {
         if (finished || beatMap == null) return;
 
-        float songTime = SceneManager.Instance.GetCurrentSongTime();
+        float songTime = SceneManager1.Instance.GetCurrentSongTime();
 
         // Spawn notes that need to appear now (travelTime seconds before their hitTime)
         while (nextNoteIndex < beatMap.notes.Count)

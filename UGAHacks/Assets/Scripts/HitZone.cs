@@ -52,7 +52,7 @@ public class HitZone : MonoBehaviour
         if (pendingNotes.Count == 0)
             return;
 
-        float songTime = SceneManager.Instance.GetCurrentSongTime();
+        float songTime = SceneManager1.Instance.GetCurrentSongTime();
 
         // Find the closest note within the miss window
         Note closest = null;
@@ -65,7 +65,7 @@ public class HitZone : MonoBehaviour
             float diff = songTime - note.Data.hitTime;
             float abs = Mathf.Abs(diff);
 
-            if (abs < closestDiff && abs <= SceneManager.Instance.missWindow)
+            if (abs < closestDiff && abs <= SceneManager1.Instance.missWindow)
             {
                 closest = note;
                 closestDiff = abs;
@@ -75,7 +75,7 @@ public class HitZone : MonoBehaviour
         if (closest != null)
         {
             float timeDiff = songTime - closest.Data.hitTime;
-            SceneManager.Instance.RegisterHit(timeDiff);
+            SceneManager1.Instance.RegisterHit(timeDiff);
             closest.Hit();
             pendingNotes.Remove(closest);
         }
