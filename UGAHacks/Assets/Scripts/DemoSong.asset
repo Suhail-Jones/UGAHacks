@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ba4298a6954704c9340e974544779a, type: 3}
   m_Name: DemoSong
   m_EditorClassIdentifier: Assembly-CSharp::BeatMap
-  songName: IDK
+  songName: Magic Beats
   audioClip: {fileID: 8300000, guid: 7a7525a6f451bd147b765d6305a5b9c5, type: 3}
   bpm: 91
   startDelay: 3
@@ -28,24 +28,24 @@ MonoBehaviour:
   - lane: 1
     hitTime: 3
   - lane: 2
-    hitTime: 3.25
-  - lane: 3
     hitTime: 3.5
-  - lane: 0
+  - lane: 3
     hitTime: 4
-  - lane: 2
-    hitTime: 4.25
-  - lane: 1
+  - lane: 0
     hitTime: 4.5
   - lane: 2
-    hitTime: 4.75
-  - lane: 1
     hitTime: 5
-  - lane: 0
+  - lane: 1
     hitTime: 5.5
-  - lane: 3
-    hitTime: 5.75
-  - lane: 0
+  - lane: 2
     hitTime: 6
+  - lane: 1
+    hitTime: 6.5
+  - lane: 0
+    hitTime: 7
   - lane: 3
-    hitTime: 6.25
+    hitTime: 7.5
+  - lane: 0
+    hitTime: 8
+  - lane: 3
+    hitTime: 8.5

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 public class NoteSpawner : MonoBehaviour
@@ -23,6 +23,12 @@ public class NoteSpawner : MonoBehaviour
     // Sprites per lane (set via inspector or loaded)
     public Sprite[] laneSprites = new Sprite[4]; // Left, Down, Up, Right
 
+    [Header("Arrow Rotation (Z-axis degrees per lane)")]
+    [Tooltip("Z rotation for each lane so the arrow points the correct direction.\n" +
+             "Defaults assume the source sprite points UP.\n" +
+             "Left=90, Down=180, Up=0, Right=-90")]
+    public float[] laneRotations = new float[4] { 90f, 180f, 0f, -90f };
+
     void Start()
     {
         beatMap = SceneManager1.Instance.currentBeatMap;
@@ -36,7 +42,6 @@ public class NoteSpawner : MonoBehaviour
 
         float songTime = SceneManager1.Instance.GetCurrentSongTime();
 
-        // Spawn notes that need to appear now (travelTime seconds before their hitTime)
         while (nextNoteIndex < beatMap.notes.Count)
         {
             NoteData data = beatMap.notes[nextNoteIndex];
@@ -49,7 +54,7 @@ public class NoteSpawner : MonoBehaviour
             }
             else
             {
-                break; // notes are sorted by hitTime
+                break;
             }
         }
 
@@ -63,12 +68,19 @@ public class NoteSpawner : MonoBehaviour
         Transform target = laneTargets[laneIndex];
 
         Vector3 spawnPos = new Vector3(target.position.x, target.position.y + spawnYOffset, 0f);
-        GameObject noteGO = Instantiate(notePrefab, spawnPos, Quaternion.identity);
+
+        // ── Apply the per-lane rotation ──
+        float zAngle = (laneRotations != null && laneIndex < laneRotations.Length)
+                        ? laneRotations[laneIndex]
+                        : 0f;
+        Quaternion spawnRot = Quaternion.Euler(0f, 0f, zAngle);
+
+        GameObject noteGO = Instantiate(notePrefab, spawnPos, spawnRot);
 
         Note note = noteGO.GetComponent<Note>();
         note.Initialize(data, target.position, travelTime);
 
-        // Set sprite/color
+        // Set sprite
         SpriteRenderer sr = noteGO.GetComponent<SpriteRenderer>();
         if (laneSprites != null && laneIndex < laneSprites.Length && laneSprites[laneIndex] != null)
         {
@@ -76,7 +88,6 @@ public class NoteSpawner : MonoBehaviour
         }
         else
         {
-            // Fallback: tint by lane
             Color[] colors = { Color.magenta, Color.cyan, Color.green, Color.red };
             sr.color = colors[laneIndex];
         }
