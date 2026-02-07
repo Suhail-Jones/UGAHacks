@@ -21,7 +21,6 @@ public class DialogueManager : MonoBehaviour
     public Button choiceButton2;
 
     // THE INVISIBLE BUTTON: Drag a button that covers the screen here
-    // (This is needed to click through normal text lines)
     public Button continueButton; 
 
     void Start()
@@ -68,10 +67,14 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        // 3. SHOW CHOICES OR SHOW CONTINUE BUTTON
+        // 3. SHOW CHOICES OR SHOW TEXT
         if (story.currentChoices.Count > 0)
         {
-            // We have choices: Hide the "Next" button so they MUST pick an option
+            // --- CHOICE MODE ---
+            // HIDE THE STORY TEXT (Per your request)
+            storyText.gameObject.SetActive(false);
+            
+            // Hide the continue button so they MUST pick an option
             continueButton.gameObject.SetActive(false);
 
             // --- SETUP BUTTON 1 ---
@@ -102,6 +105,10 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
+            // --- TEXT READING MODE ---
+            // SHOW THE STORY TEXT
+            storyText.gameObject.SetActive(true);
+
             // No choices? Show the invisible "Next" button so clicking anywhere advances text
             continueButton.gameObject.SetActive(true);
         }
