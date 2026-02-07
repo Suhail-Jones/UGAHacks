@@ -1,0 +1,494 @@
+fileFormatVersion: 2
+guid: c64126784c4e706459988b5f9db39956
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6388039431179034843
+    second: witchKitty_sleepyIdleBreaker_0
+  - first:
+      213: 9003133178031781461
+    second: witchKitty_sleepyIdleBreaker_1
+  - first:
+      213: 5404294868956607269
+    second: witchKitty_sleepyIdleBreaker_2
+  - first:
+      213: -6030381401571899557
+    second: witchKitty_sleepyIdleBreaker_3
+  - first:
+      213: 4472171113446865260
+    second: witchKitty_sleepyIdleBreaker_4
+  - first:
+      213: -6531168550444300025
+    second: witchKitty_sleepyIdleBreaker_5
+  - first:
+      213: 8972763328886742426
+    second: witchKitty_sleepyIdleBreaker_6
+  - first:
+      213: 4687604510904684095
+    second: witchKitty_sleepyIdleBreaker_7
+  - first:
+      213: -2829276251532980523
+    second: witchKitty_sleepyIdleBreaker_8
+  - first:
+      213: -56078029543575843
+    second: witchKitty_sleepyIdleBreaker_9
+  - first:
+      213: -480085264454660557
+    second: witchKitty_sleepyIdleBreaker_10
+  - first:
+      213: -3380432864040728313
+    second: witchKitty_sleepyIdleBreaker_11
+  - first:
+      213: -4469871802006537702
+    second: witchKitty_sleepyIdleBreaker_12
+  - first:
+      213: -516975595687335587
+    second: witchKitty_sleepyIdleBreaker_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: witchKitty_sleepyIdleBreaker_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 258
+        width: 50
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52f926d8bff1957a0800000000000000
+      internalID: -6388039431179034843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchKitty_sleepyIdleBreaker_1
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 258
+        width: 51
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5563e1ebced81fc70800000000000000
+      internalID: 9003133178031781461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchKitty_sleepyIdleBreaker_2
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 258
+        width: 50
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 523ff95dc89effa40800000000000000
+      internalID: 5404294868956607269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchKitty_sleepyIdleBreaker_3
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 194
+        width: 52
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b574f2bc018cf4ca0800000000000000
+      internalID: -6030381401571899557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchKitty_sleepyIdleBreaker_4
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 194
+        width: 52
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6973cfdee7501e30800000000000000
+      internalID: 4472171113446865260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchKitty_sleepyIdleBreaker_5
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 194
+        width: 54
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70980969ec0ac55a0800000000000000
+      internalID: -6531168550444300025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchKitty_sleepyIdleBreaker_6
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 130
+        width: 52
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9d12f735b8a58c70800000000000000
+      internalID: 8972763328886742426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchKitty_sleepyIdleBreaker_7
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 130
+        width: 52
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3e0ef77777bd0140800000000000000
+      internalID: 4687604510904684095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchKitty_sleepyIdleBreaker_8
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 130
+        width: 52
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5de8de74d346cb8d0800000000000000
+      internalID: -2829276251532980523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchKitty_sleepyIdleBreaker_9
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 66
+        width: 51
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddee9594455c83ff0800000000000000
+      internalID: -56078029543575843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchKitty_sleepyIdleBreaker_10
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 66
+        width: 52
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33ec74edef46659f0800000000000000
+      internalID: -480085264454660557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchKitty_sleepyIdleBreaker_11
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 66
+        width: 52
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 709cbcf683a4611d0800000000000000
+      internalID: -3380432864040728313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchKitty_sleepyIdleBreaker_12
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 2
+        width: 50
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1a7dd94743d7f1c0800000000000000
+      internalID: -4469871802006537702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: witchKitty_sleepyIdleBreaker_13
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 2
+        width: 50
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d59a28d4f6553d8f0800000000000000
+      internalID: -516975595687335587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      witchKitty_sleepyIdleBreaker_0: -6388039431179034843
+      witchKitty_sleepyIdleBreaker_1: 9003133178031781461
+      witchKitty_sleepyIdleBreaker_10: -480085264454660557
+      witchKitty_sleepyIdleBreaker_11: -3380432864040728313
+      witchKitty_sleepyIdleBreaker_12: -4469871802006537702
+      witchKitty_sleepyIdleBreaker_13: -516975595687335587
+      witchKitty_sleepyIdleBreaker_2: 5404294868956607269
+      witchKitty_sleepyIdleBreaker_3: -6030381401571899557
+      witchKitty_sleepyIdleBreaker_4: 4472171113446865260
+      witchKitty_sleepyIdleBreaker_5: -6531168550444300025
+      witchKitty_sleepyIdleBreaker_6: 8972763328886742426
+      witchKitty_sleepyIdleBreaker_7: 4687604510904684095
+      witchKitty_sleepyIdleBreaker_8: -2829276251532980523
+      witchKitty_sleepyIdleBreaker_9: -56078029543575843
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

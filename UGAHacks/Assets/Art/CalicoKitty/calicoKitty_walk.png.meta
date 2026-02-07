@@ -1,0 +1,546 @@
+fileFormatVersion: 2
+guid: 186842f8642efa346936d6b63a8e5e10
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7540402242085910378
+    second: calicoKitty_walk_0
+  - first:
+      213: 6141879704670820955
+    second: calicoKitty_walk_1
+  - first:
+      213: 4780878810740150544
+    second: calicoKitty_walk_2
+  - first:
+      213: 7852182635666123930
+    second: calicoKitty_walk_3
+  - first:
+      213: -5505095907963491088
+    second: calicoKitty_walk_4
+  - first:
+      213: 1354517349384302773
+    second: calicoKitty_walk_5
+  - first:
+      213: 1680373840486669987
+    second: calicoKitty_walk_6
+  - first:
+      213: -265629709027438390
+    second: calicoKitty_walk_7
+  - first:
+      213: -7152282060054381381
+    second: calicoKitty_walk_8
+  - first:
+      213: 2947880780211545749
+    second: calicoKitty_walk_9
+  - first:
+      213: 5116438466941020370
+    second: calicoKitty_walk_10
+  - first:
+      213: -1298041908428281265
+    second: calicoKitty_walk_11
+  - first:
+      213: -1405135214801870661
+    second: calicoKitty_walk_12
+  - first:
+      213: 8855145449081827468
+    second: calicoKitty_walk_13
+  - first:
+      213: 5724230517252870710
+    second: calicoKitty_walk_14
+  - first:
+      213: 8910548863845570467
+    second: calicoKitty_walk_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: calicoKitty_walk_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 194
+        width: 50
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a67f61f63e3e4a860800000000000000
+      internalID: 7540402242085910378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_walk_1
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 194
+        width: 44
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5ad512ec075c3550800000000000000
+      internalID: 6141879704670820955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_walk_2
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 194
+        width: 50
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 011db5cb2f7195240800000000000000
+      internalID: 4780878810740150544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_walk_3
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 194
+        width: 44
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9cae56218e88fc60800000000000000
+      internalID: 7852182635666123930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_walk_4
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 130
+        width: 50
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fc216f5078f993b0800000000000000
+      internalID: -5505095907963491088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_walk_5
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 129
+        width: 50
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b0b72c4a563cc210800000000000000
+      internalID: 1354517349384302773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_walk_6
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 130
+        width: 50
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ae111cda13e15710800000000000000
+      internalID: 1680373840486669987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_walk_7
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 129
+        width: 50
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac011afdf2b405cf0800000000000000
+      internalID: -265629709027438390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_walk_8
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 68
+        width: 39
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbc3f0d5c5dfdbc90800000000000000
+      internalID: -7152282060054381381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_walk_9
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 68
+        width: 38
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 596e5b873f9f8e820800000000000000
+      internalID: 2947880780211545749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_walk_10
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 68
+        width: 39
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d8e9297dad310740800000000000000
+      internalID: 5116438466941020370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_walk_11
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 68
+        width: 38
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4aef88f2cd6cfde0800000000000000
+      internalID: -1298041908428281265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_walk_12
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 4
+        width: 39
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb0a75487f4ff7ce0800000000000000
+      internalID: -1405135214801870661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_walk_13
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 4
+        width: 38
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8070fe8edbc3ea70800000000000000
+      internalID: 8855145449081827468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_walk_14
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 4
+        width: 39
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 632de41c35d807f40800000000000000
+      internalID: 5724230517252870710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_walk_15
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 4
+        width: 38
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a796474bf0a8ab70800000000000000
+      internalID: 8910548863845570467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      calicoKitty_walk_0: 7540402242085910378
+      calicoKitty_walk_1: 6141879704670820955
+      calicoKitty_walk_10: 5116438466941020370
+      calicoKitty_walk_11: -1298041908428281265
+      calicoKitty_walk_12: -1405135214801870661
+      calicoKitty_walk_13: 8855145449081827468
+      calicoKitty_walk_14: 5724230517252870710
+      calicoKitty_walk_15: 8910548863845570467
+      calicoKitty_walk_2: 4780878810740150544
+      calicoKitty_walk_3: 7852182635666123930
+      calicoKitty_walk_4: -5505095907963491088
+      calicoKitty_walk_5: 1354517349384302773
+      calicoKitty_walk_6: 1680373840486669987
+      calicoKitty_walk_7: -265629709027438390
+      calicoKitty_walk_8: -7152282060054381381
+      calicoKitty_walk_9: 2947880780211545749
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

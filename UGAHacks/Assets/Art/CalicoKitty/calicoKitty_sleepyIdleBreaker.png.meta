@@ -1,0 +1,468 @@
+fileFormatVersion: 2
+guid: be8a432f75bc0c84eaf69f2295e60e67
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -256380520490402581
+    second: calicoKitty_sleepyIdleBreaker_0
+  - first:
+      213: -408630182614744737
+    second: calicoKitty_sleepyIdleBreaker_1
+  - first:
+      213: -1185332497411786418
+    second: calicoKitty_sleepyIdleBreaker_2
+  - first:
+      213: -5900452453824666811
+    second: calicoKitty_sleepyIdleBreaker_3
+  - first:
+      213: -7688791883554203126
+    second: calicoKitty_sleepyIdleBreaker_4
+  - first:
+      213: -5213005731545798361
+    second: calicoKitty_sleepyIdleBreaker_5
+  - first:
+      213: -7526064770632508394
+    second: calicoKitty_sleepyIdleBreaker_6
+  - first:
+      213: 7506874188084377878
+    second: calicoKitty_sleepyIdleBreaker_7
+  - first:
+      213: -4936929445106703253
+    second: calicoKitty_sleepyIdleBreaker_8
+  - first:
+      213: 592352817954625378
+    second: calicoKitty_sleepyIdleBreaker_9
+  - first:
+      213: -4899346302000244496
+    second: calicoKitty_sleepyIdleBreaker_10
+  - first:
+      213: -1332239695778122674
+    second: calicoKitty_sleepyIdleBreaker_11
+  - first:
+      213: 862683334211592027
+    second: calicoKitty_sleepyIdleBreaker_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: calicoKitty_sleepyIdleBreaker_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 130
+        width: 50
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: becf6d46647217cf0800000000000000
+      internalID: -256380520490402581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_sleepyIdleBreaker_1
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 130
+        width: 51
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f51ceb09301445af0800000000000000
+      internalID: -408630182614744737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_sleepyIdleBreaker_2
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 130
+        width: 50
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e493b0faf5adc8fe0800000000000000
+      internalID: -1185332497411786418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_sleepyIdleBreaker_3
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 130
+        width: 52
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 543e2b351c16d1ea0800000000000000
+      internalID: -5900452453824666811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_sleepyIdleBreaker_4
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 130
+        width: 52
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0a58d4d48ceb4590800000000000000
+      internalID: -7688791883554203126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_sleepyIdleBreaker_5
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 66
+        width: 54
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 729232728eea7a7b0800000000000000
+      internalID: -5213005731545798361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_sleepyIdleBreaker_6
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 66
+        width: 52
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61c1ed547fb0e8790800000000000000
+      internalID: -7526064770632508394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_sleepyIdleBreaker_7
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 66
+        width: 52
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 619715a0d46cd2860800000000000000
+      internalID: 7506874188084377878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_sleepyIdleBreaker_8
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 66
+        width: 52
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b64af3f93d08c7bb0800000000000000
+      internalID: -4936929445106703253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_sleepyIdleBreaker_9
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 66
+        width: 51
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26713efdfb5783800800000000000000
+      internalID: 592352817954625378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_sleepyIdleBreaker_10
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 2
+        width: 52
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f8d6a50f76020cb0800000000000000
+      internalID: -4899346302000244496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_sleepyIdleBreaker_11
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 2
+        width: 52
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4478712e0fe28de0800000000000000
+      internalID: -1332239695778122674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: calicoKitty_sleepyIdleBreaker_12
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 2
+        width: 50
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5fd459fbedd8fb00800000000000000
+      internalID: 862683334211592027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      calicoKitty_sleepyIdleBreaker_0: -256380520490402581
+      calicoKitty_sleepyIdleBreaker_1: -408630182614744737
+      calicoKitty_sleepyIdleBreaker_10: -4899346302000244496
+      calicoKitty_sleepyIdleBreaker_11: -1332239695778122674
+      calicoKitty_sleepyIdleBreaker_12: 862683334211592027
+      calicoKitty_sleepyIdleBreaker_2: -1185332497411786418
+      calicoKitty_sleepyIdleBreaker_3: -5900452453824666811
+      calicoKitty_sleepyIdleBreaker_4: -7688791883554203126
+      calicoKitty_sleepyIdleBreaker_5: -5213005731545798361
+      calicoKitty_sleepyIdleBreaker_6: -7526064770632508394
+      calicoKitty_sleepyIdleBreaker_7: 7506874188084377878
+      calicoKitty_sleepyIdleBreaker_8: -4936929445106703253
+      calicoKitty_sleepyIdleBreaker_9: 592352817954625378
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

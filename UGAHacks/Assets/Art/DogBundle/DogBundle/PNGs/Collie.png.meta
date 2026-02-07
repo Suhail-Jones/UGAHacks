@@ -1,0 +1,702 @@
+fileFormatVersion: 2
+guid: b7ad6cfc54df86d4cafad956c7ee34f6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8404043560195465528
+    second: Collie_0
+  - first:
+      213: -1914260423920202757
+    second: Collie_1
+  - first:
+      213: -3938731296971386258
+    second: Collie_2
+  - first:
+      213: 3227361046446520970
+    second: Collie_3
+  - first:
+      213: 6559931817641984729
+    second: Collie_4
+  - first:
+      213: 2481904437363547055
+    second: Collie_5
+  - first:
+      213: 6174046684873360051
+    second: Collie_6
+  - first:
+      213: 6372332658570860209
+    second: Collie_7
+  - first:
+      213: 7278554235003243534
+    second: Collie_8
+  - first:
+      213: 3892055079809940141
+    second: Collie_9
+  - first:
+      213: -2547829874330792817
+    second: Collie_10
+  - first:
+      213: -9113502045937720340
+    second: Collie_11
+  - first:
+      213: 4021229473171480886
+    second: Collie_12
+  - first:
+      213: 4828011517830961188
+    second: Collie_13
+  - first:
+      213: 2728037192806603503
+    second: Collie_14
+  - first:
+      213: 7938750148875712303
+    second: Collie_15
+  - first:
+      213: -4758306831846166041
+    second: Collie_16
+  - first:
+      213: 4986468246933467456
+    second: Collie_17
+  - first:
+      213: 9200474695178400046
+    second: Collie_18
+  - first:
+      213: 7346994026742833107
+    second: Collie_19
+  - first:
+      213: 3185112426656435562
+    second: Collie_20
+  - first:
+      213: 2856259915973762609
+    second: Collie_21
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Collie_0
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 143
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8312c5a671921a470800000000000000
+      internalID: 8404043560195465528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_1
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 143
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfbc5a0694e2f65e0800000000000000
+      internalID: -1914260423920202757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_2
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 143
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e629e42f0c0d659c0800000000000000
+      internalID: -3938731296971386258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_3
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 143
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8ab06fb5c3e9cc20800000000000000
+      internalID: 3227361046446520970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_4
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 143
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d2455d6b3f890b50800000000000000
+      internalID: 6559931817641984729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_5
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 143
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fab1583afee717220800000000000000
+      internalID: 2481904437363547055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_6
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 143
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b20e869fbe9ea550800000000000000
+      internalID: 6174046684873360051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_7
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 143
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b69cb87ac21f6850800000000000000
+      internalID: 6372332658570860209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_8
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 79
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0c88c7638e920560800000000000000
+      internalID: 7278554235003243534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_9
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 79
+        width: 28
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daa735e597b530630800000000000000
+      internalID: 3892055079809940141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_10
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 79
+        width: 25
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8c82607a3a44acd0800000000000000
+      internalID: -2547829874330792817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_11
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 79
+        width: 26
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce32614bc26568180800000000000000
+      internalID: -9113502045937720340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_12
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 79
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 631a7b486e64ec730800000000000000
+      internalID: 4021229473171480886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_13
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 79
+        width: 28
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4281fc345ea800340800000000000000
+      internalID: 4828011517830961188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_14
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 79
+        width: 25
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fea9a438f5febd520800000000000000
+      internalID: 2728037192806603503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_15
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 79
+        width: 28
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f27f058f23b1c2e60800000000000000
+      internalID: 7938750148875712303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_16
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 15
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e1be73a52917fdb0800000000000000
+      internalID: -4758306831846166041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_17
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 15
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 041fb3e737e733540800000000000000
+      internalID: 4986468246933467456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_18
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 15
+        width: 33
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2134133df6aeaf70800000000000000
+      internalID: 9200474695178400046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_19
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 15
+        width: 35
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3df5cea2424c5f560800000000000000
+      internalID: 7346994026742833107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_20
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 15
+        width: 33
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6d0a8860eac33c20800000000000000
+      internalID: 3185112426656435562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Collie_21
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 15
+        width: 25
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13e9dcda24973a720800000000000000
+      internalID: 2856259915973762609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Collie_0: 8404043560195465528
+      Collie_1: -1914260423920202757
+      Collie_10: -2547829874330792817
+      Collie_11: -9113502045937720340
+      Collie_12: 4021229473171480886
+      Collie_13: 4828011517830961188
+      Collie_14: 2728037192806603503
+      Collie_15: 7938750148875712303
+      Collie_16: -4758306831846166041
+      Collie_17: 4986468246933467456
+      Collie_18: 9200474695178400046
+      Collie_19: 7346994026742833107
+      Collie_2: -3938731296971386258
+      Collie_20: 3185112426656435562
+      Collie_21: 2856259915973762609
+      Collie_3: 3227361046446520970
+      Collie_4: 6559931817641984729
+      Collie_5: 2481904437363547055
+      Collie_6: 6174046684873360051
+      Collie_7: 6372332658570860209
+      Collie_8: 7278554235003243534
+      Collie_9: 3892055079809940141
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
