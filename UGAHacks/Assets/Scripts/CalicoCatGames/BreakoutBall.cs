@@ -9,7 +9,7 @@ public class BreakoutBall : MonoBehaviour
 {
     [Header("Settings")]
     public float speed    = 8f;
-    public float maxAngle = 60f; // Max deflection angle off paddle (degrees)
+    public float maxAngle = 60f;
 
     private Rigidbody2D rb;
     private bool launched = false;
@@ -43,7 +43,7 @@ public class BreakoutBall : MonoBehaviour
         rb.linearDamping         = 0f;
         rb.angularDamping  = 0f;
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-        rb.isKinematic  = true; // Sits on paddle until launched
+        rb.isKinematic  = true;
 
         // Find the paddle
         BreakoutPaddle paddle = FindObjectOfType<BreakoutPaddle>();
@@ -69,7 +69,7 @@ public class BreakoutBall : MonoBehaviour
             return;
         }
 
-        // ── Safety: reset ball if it somehow falls off screen ──
+        // ── Safety: reset ball if it falls off screen ──
         if (transform.position.y < -7f)
         {
             BreakoutGame.Instance.LoseLife();
@@ -82,7 +82,7 @@ public class BreakoutBall : MonoBehaviour
         if (!launched) return;
         if (rb.linearVelocity.sqrMagnitude < 0.01f) return;
 
-        // ── Keep speed constant (physics material can drift slightly) ──
+        // ── Keep speed constant ──
         rb.linearVelocity = rb.linearVelocity.normalized * speed;
 
         // ── Prevent boring horizontal bouncing ──
@@ -110,7 +110,6 @@ public class BreakoutBall : MonoBehaviour
         rb.angularVelocity = 0f;
         rb.isKinematic     = true;
 
-        // Snap back onto the paddle immediately
         if (paddleTransform != null)
             transform.position = paddleTransform.position
                                + Vector3.up * paddleTopOffset;

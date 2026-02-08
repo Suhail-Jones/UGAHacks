@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class BreakoutGame : MonoBehaviour
@@ -10,9 +11,12 @@ public class BreakoutGame : MonoBehaviour
     [Header("Game Settings")]
     public int startingLives = 3;
 
+    [Header("Auto-Return")]
+    public float endDelay = 5f;
+
     [Header("Play Area")]
-    public float areaWidth  = 11f;
-    public float areaHeight = 11f;
+    public float areaWidth    = 11f;
+    public float areaHeight   = 11f;
     public float wallThickness = 0.5f;
 
     [Header("Brick Grid")]
@@ -21,23 +25,19 @@ public class BreakoutGame : MonoBehaviour
     public float brickWidth   = 1.2f;
     public float brickHeight  = 0.5f;
     public float brickSpacing = 0.1f;
-    public float brickStartY  = 3.5f; // Y position of first row
+    public float brickStartY  = 3.5f;
 
     [Header("UI References (drag these in)")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI livesText;
     public TextMeshProUGUI messageText;
-    public GameObject gameOverPanel;
-    public Button continueButton;
 
     public bool IsPlaying { get; private set; }
     public int  Score     { get; private set; }
     public int  Lives     { get; private set; }
 
-    private int  bricksRemaining;
-    private bool lastResult;
+    private int bricksRemaining;
 
-    // Row colors (cycles if more rows than colors)
     private readonly Color[] rowColors =
     {
         new Color(1f, 0.3f, 0.3f),   // Red
@@ -55,10 +55,6 @@ public class BreakoutGame : MonoBehaviour
         Score = 0;
         Lives = startingLives;
         IsPlaying = false;
-        gameOverPanel.SetActive(false);
-
-        if (continueButton != null)
-            continueButton.onClick.AddListener(ManualReturn);
 
         CreateWalls();
         CreateBricks();
@@ -96,6 +92,10 @@ public class BreakoutGame : MonoBehaviour
         sr.sortingOrder = 0;
 
         w.AddComponent<BoxCollider2D>();
+
+        // Ensure wall unloads with this scene
+        UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(
+            w, gameObject.scene);
     }
 
     // ── Generates the colored brick grid ──
@@ -126,6 +126,10 @@ public class BreakoutGame : MonoBehaviour
 
                 b.AddComponent<BoxCollider2D>();
                 b.AddComponent<Brick>();
+
+                // Ensure brick unloads with this scene
+                UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(
+                    b, gameObject.scene);
 
                 bricksRemaining++;
             }
@@ -168,13 +172,11 @@ public class BreakoutGame : MonoBehaviour
     void EndGame(bool won)
     {
         IsPlaying = false;
-        lastResult = won;
 
-        gameOverPanel.SetActive(true);
         messageText.gameObject.SetActive(true);
         messageText.text = won ? "ALL CLEAR!" : "NO LIVES LEFT!";
 
-        StartCoroutine(AutoReturnRoutine());
+        StartCoroutine(ReturnToStageSequence(won));
     }
 
     void UpdateUI()
@@ -183,47 +185,42 @@ public class BreakoutGame : MonoBehaviour
         livesText.text = $"Lives: {Lives}";
     }
 
-    IEnumerator AutoReturnRoutine()
+    // ── Wait, then exit back to main scene ──
+    IEnumerator ReturnToStageSequence(bool won)
     {
-        yield return new WaitForSeconds(3f);
-        ReturnToStage();
+        yield return new WaitForSeconds(endDelay);
+        ReturnToStage(won);
     }
 
-    void ManualReturn()
+    void ReturnToStage(bool playerWon)
+{
+    // 1. Primary: Use the singleton
+    GameManager gm = GameManager.Instance;
+
+    // 2. Backup: If singleton is null, search all objects (including inactive)
+    if (gm == null)
     {
-        StopAllCoroutines();
-        ReturnToStage();
+        Debug.LogWarning("GameManager.Instance was null — searching scene...");
+        GameManager[] all = Resources.FindObjectsOfTypeAll<GameManager>();
+        if (all.Length > 0) gm = all[0];
     }
 
-    void ReturnToStage()
+    // 3. Convert bool to float: 1.0 = perfect win, 0.0 = loss
+    if (gm != null)
     {
-        float performance = GetPerformance();
-
-        if (GameManager.Instance != null)
-            GameManager.Instance.EndMinigameScene(performance);
-        else
-            Debug.LogWarning("GameManager not found!");
+        gm.EndMinigameScene(playerWon ? 1f : 0f);
+        return;
     }
 
-    /// <summary>
-    /// Performance based on lives remaining and bricks cleared.
-    /// 1.0 = all bricks destroyed with all lives intact.
-    /// 0.0 = lost all lives with no bricks destroyed.
-    /// </summary>
-    public float GetPerformance()
+    // 4. Last resort: try MinigameController
+    MinigameController controller = FindObjectOfType<MinigameController>();
+    if (controller != null)
     {
-        int totalBricks = columns * rows;
-
-        // How many bricks were destroyed
-        int bricksDestroyed = totalBricks - bricksRemaining;
-        float clearRatio = totalBricks > 0 ? (float)bricksDestroyed / totalBricks : 0f;
-
-        // How many lives survived
-        float lifeRatio = startingLives > 0 ? (float)Lives / startingLives : 0f;
-
-        // Weighted: clearing bricks matters most, surviving lives is a bonus
-        float performance = (clearRatio * 0.7f) + (lifeRatio * 0.3f);
-
-        return Mathf.Clamp01(performance);
+        if (playerWon) controller.WinGame();
+        else controller.LoseGame();
+        return;
     }
+
+    Debug.LogError("No GameManager or MinigameController found!");
+}
 }

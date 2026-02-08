@@ -8,7 +8,7 @@ public class BreakoutPaddle : MonoBehaviour
 {
     [Header("Settings")]
     public float speed    = 10f;
-    public float boundary = 4.5f; // Max X the paddle center can reach
+    public float boundary = 4.5f;
 
     void Awake()
     {
@@ -25,7 +25,7 @@ public class BreakoutPaddle : MonoBehaviour
         if (BreakoutGame.Instance == null || !BreakoutGame.Instance.IsPlaying)
             return;
 
-        float input = Input.GetAxis("Horizontal"); // Arrow keys / A & D
+        float input = Input.GetAxis("Horizontal");
 
         Vector3 pos = transform.position;
         pos.x += input * speed * Time.deltaTime;
