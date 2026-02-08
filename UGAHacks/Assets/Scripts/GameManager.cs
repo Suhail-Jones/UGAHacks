@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
@@ -145,6 +145,9 @@ public class GameManager : MonoBehaviour
         Vector3 start = spawnPoint.position;
         Vector3 end = centerPoint.position;
 
+        // Start walking animation
+        patientAnimator.SetBool("isWalking", true);
+
         while (elapsed < duration)
         {
             patientRenderer.transform.position = Vector3.Lerp(start, end, elapsed / duration);
@@ -152,5 +155,8 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         patientRenderer.transform.position = end;
+
+        // Stop walking animation, return to idle
+        patientAnimator.SetBool("isWalking", false);
     }
 }

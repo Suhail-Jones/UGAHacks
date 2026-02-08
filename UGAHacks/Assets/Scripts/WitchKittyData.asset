@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: WitchKittyData
   m_EditorClassIdentifier: Assembly-CSharp::PatientData
   characterName: witchKitty
-  animator: {fileID: 0}
+  animator: {fileID: 9100000, guid: b30e22cc209506c4e9efdfd4304d7205, type: 2}
   defaultSprite: {fileID: -4546007443343623443, guid: e595746b20a54384299bcd7da1318108, type: 3}
-  sickColor: {r: 1, g: 1, b: 1, a: 1}
-  curedColor: {r: 0, g: 1, b: 0, a: 1}
-  altColor: {r: 0, g: 1, b: 1, a: 1}
-  scale: {x: 5, y: 5, z: 1}
+  sickColor: {r: 0.3730865, g: 0.6037736, b: 0.3917909, a: 1}
+  curedColor: {r: 1, g: 1, b: 1, a: 1}
+  altColor: {r: 1, g: 1, b: 1, a: 1}
+  scale: {x: 6.5, y: 6.5, z: 1}
   idealSelfSprite: {fileID: -4546007443343623443, guid: e595746b20a54384299bcd7da1318108, type: 3}

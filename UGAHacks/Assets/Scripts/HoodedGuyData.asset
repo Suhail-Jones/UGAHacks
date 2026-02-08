@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: HoodedGuyData
   m_EditorClassIdentifier: Assembly-CSharp::PatientData
   characterName: hoodedGuy
-  animator: {fileID: 0}
+  animator: {fileID: 9100000, guid: 6f3576a1c1472d44b8740720f662fe5e, type: 2}
   defaultSprite: {fileID: 3713219614965599903, guid: 054d5276956bf75418b3e6572c445c95, type: 3}
   sickColor: {r: 1, g: 1, b: 1, a: 1}
   curedColor: {r: 0, g: 1, b: 0, a: 1}
   altColor: {r: 0, g: 1, b: 1, a: 1}
-  scale: {x: -9, y: 9, z: 1}
+  scale: {x: -10, y: 10, z: 1}
   idealSelfSprite: {fileID: 3713219614965599903, guid: 054d5276956bf75418b3e6572c445c95, type: 3}
