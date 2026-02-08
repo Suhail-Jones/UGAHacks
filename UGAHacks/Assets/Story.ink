@@ -103,7 +103,7 @@ System: PATIENT DISCHARGED.
 // ==========================================
 
 === Calico_Start ===
-~ Spawn("hoodedGuy") 
+~ Spawn("calicoKitty") 
 // Note: We use the "hoodedGuy" slot in GameManager but load the Calico data
 Calico: "..."
 Calico: (She hides behind her tail, trembling.)
