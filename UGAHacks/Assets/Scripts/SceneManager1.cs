@@ -27,11 +27,14 @@ public class SceneManager1 : MonoBehaviour
 
     public float SongTime => musicSource.time;
     public float SongStartDspTime { get; private set; }
-    
-    // NEW: Tracks the exact second the last note should be hit
+
     private float lastNoteTime = 0f;
 
-    public event Action<string, int> OnNoteJudged;   
+    // Performance tracking
+    private float performanceTotal = 0f;
+    private int notesProcessed = 0;
+
+    public event Action<string, int> OnNoteJudged;
     public event Action<int> OnScoreChanged;
     public event Action OnSongFinished;
 
@@ -51,19 +54,19 @@ public class SceneManager1 : MonoBehaviour
         Score = 0;
         Combo = 0;
         MaxCombo = 0;
+        performanceTotal = 0f;
+        notesProcessed = 0;
         IsPlaying = true;
-        
-        if(currentBeatMap != null && currentBeatMap.audioClip != null)
+
+        if (currentBeatMap != null && currentBeatMap.audioClip != null)
         {
-            // 1. CALCULATE END TIME based on the notes
             lastNoteTime = 0f;
             foreach (var note in currentBeatMap.notes)
             {
-                if (note.hitTime > lastNoteTime) 
+                if (note.hitTime > lastNoteTime)
                     lastNoteTime = note.hitTime;
             }
 
-            // 2. Start Audio
             musicSource.clip = currentBeatMap.audioClip;
             musicSource.PlayDelayed(currentBeatMap.startDelay);
             SongStartDspTime = (float)AudioSettings.dspTime + currentBeatMap.startDelay;
@@ -84,11 +87,29 @@ public class SceneManager1 : MonoBehaviour
         float abs = Mathf.Abs(timeDifference);
         string judgement;
         int points;
+        float notePerformance;
 
-        if (abs <= perfectWindow) { judgement = "PERFECT"; points = perfectScore; }
-        else if (abs <= greatWindow) { judgement = "GREAT"; points = greatScore; }
-        else if (abs <= goodWindow) { judgement = "GOOD"; points = goodScore; }
-        else { RegisterMiss(); return; }
+        if (abs <= perfectWindow)
+        {
+            judgement = "PERFECT"; points = perfectScore; notePerformance = 1.0f;
+        }
+        else if (abs <= greatWindow)
+        {
+            judgement = "GREAT"; points = greatScore; notePerformance = 0.75f;
+        }
+        else if (abs <= goodWindow)
+        {
+            judgement = "GOOD"; points = goodScore; notePerformance = 0.5f;
+        }
+        else
+        {
+            RegisterMiss();
+            return;
+        }
+
+        // Track performance for this note
+        performanceTotal += notePerformance;
+        notesProcessed++;
 
         Combo++;
         if (Combo > MaxCombo) MaxCombo = Combo;
@@ -101,8 +122,20 @@ public class SceneManager1 : MonoBehaviour
 
     public void RegisterMiss()
     {
+        // Miss = 0 performance for this note
+        notesProcessed++;
+
         Combo = 0;
         OnNoteJudged?.Invoke("MISS", 0);
+    }
+
+    /// <summary>
+    /// Returns 0.0 (all misses) to 1.0 (all perfects).
+    /// </summary>
+    public float GetPerformance()
+    {
+        if (notesProcessed <= 0) return 0f;
+        return Mathf.Clamp01(performanceTotal / notesProcessed);
     }
 
     void Update()
@@ -111,9 +144,6 @@ public class SceneManager1 : MonoBehaviour
 
         float currentTime = GetCurrentSongTime();
 
-        // CHECK END CONDITION:
-        // If current time is past the last note time + a small buffer (1.5 seconds)
-        // The buffer allows the last note to visually clear the screen or be registered as a Miss
         if (currentTime > lastNoteTime + 1.5f)
         {
             EndGame();
@@ -123,9 +153,9 @@ public class SceneManager1 : MonoBehaviour
     void EndGame()
     {
         if (!IsPlaying) return;
-        
+
         IsPlaying = false;
-        musicSource.Stop(); // Cut the music if it's still playing
+        musicSource.Stop();
         OnSongFinished?.Invoke();
 
         ReturnToStage();
@@ -133,21 +163,21 @@ public class SceneManager1 : MonoBehaviour
 
     void ReturnToStage()
     {
-        // 1. Try to find the Minigame Controller
+        float performance = GetPerformance();
+
         MinigameController controller = FindObjectOfType<MinigameController>();
-        
+
         if (controller != null)
         {
-            controller.WinGame();
+            controller.EndGame(performance);
         }
         else
         {
-            // 2. Fail-Safe: If MinigameController is missing, talk to GameManager directly
             Debug.LogWarning("MinigameController not found! Calling GameManager directly.");
-            
+
             if (GameManager.Instance != null)
             {
-                GameManager.Instance.EndMinigameScene(true);
+                GameManager.Instance.EndMinigameScene(performance);
             }
         }
     }

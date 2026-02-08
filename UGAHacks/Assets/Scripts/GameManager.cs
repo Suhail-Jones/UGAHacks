@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,7 +11,6 @@ public class GameManager : MonoBehaviour
     [Header("System Connections")]
     public DialogueManager dialogueManager;
     public StressManager stressManager;
-    public GameObject gameOverScreen;
     public GameObject stageGroup;
 
     [Header("Scene Connections")]
@@ -33,10 +33,22 @@ public class GameManager : MonoBehaviour
     public AudioClip bgmClip;
     [Range(0f, 1f)] public float musicVolume = 0.5f;
 
+    [Header("Game Over")]
+    public GameObject gameOverScreen;
+    public Button restartButton;
+    public string startMenuSceneName = "StartScene";
+
+    [Header("Minigame Stress")]
+    [Tooltip("Stress added at 0% performance (worst)")]
+    public float worstStressChange = 25f;
+    [Tooltip("Stress added at 100% performance (best, should be negative)")]
+    public float bestStressChange = -25f;
+
     private PatientData currentPatient;
     private string activeMinigameScene;
     private Coroutine walkCoroutine;
     private Dictionary<string, PatientData> patientLookup;
+    private bool isGameOver = false;
 
     void Awake()
     {
@@ -51,8 +63,15 @@ public class GameManager : MonoBehaviour
             patientLookup[p.characterName] = p;
         }
 
+        if (gameOverScreen != null) gameOverScreen.SetActive(false);
+
+        if (restartButton != null)
+            restartButton.onClick.AddListener(RestartGame);
+
         StartMusic();
     }
+
+    // ===================== MUSIC =====================
 
     void StartMusic()
     {
@@ -75,6 +94,8 @@ public class GameManager : MonoBehaviour
         if (musicSource != null && !musicSource.isPlaying)
             musicSource.UnPause();
     }
+
+    // ===================== PATIENTS =====================
 
     public void SpawnPatient(string name)
     {
@@ -128,18 +149,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called by Ink's EndPatient(). Stress persists across patients.
+    /// </summary>
+    public void OnEndPatient()
+    {
+        // No reputation, no stress reset — stress carries across the full shift
+    }
+
+    // ===================== MINIGAMES =====================
+
     public void LoadMinigameScene(string sceneName)
     {
         activeMinigameScene = sceneName;
 
-        if (stageGroup != null) stageGroup.SetActive(false);
-
         PauseMusic();
+
+        if (stageGroup != null) stageGroup.SetActive(false);
 
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 
-public void EndMinigameScene(bool won)
+    /// <summary>
+    /// Called when a minigame ends. Performance is 0.0 (terrible) to 1.0 (perfect).
+    /// </summary>
+    public void EndMinigameScene(float performance)
     {
         SceneManager.UnloadSceneAsync(activeMinigameScene);
 
@@ -147,24 +181,42 @@ public void EndMinigameScene(bool won)
 
         ResumeMusic();
 
-        if (won) stressManager.ModifyStress(-20);
-        else stressManager.ModifyStress(20);
-        
-        // CRITICAL CHANGE: We removed "dialogueManager.ContinueStory();"
-        // The text ("Did it work?") is already waiting in the text box because Ink 
-        // loaded it while starting the game. We just needed to unhide the stage to see it.
-        // The player will click "Continue" manually to read the next line.
-        
-        // Ensure the Dialogue UI is visible (in case it was hidden)
+        // Map performance to stress:
+        //   0.0 → worstStressChange  (+25 by default)
+        //   0.5 → 0 stress change
+        //   1.0 → bestStressChange   (-25 by default)
+        float stressChange = Mathf.Lerp(worstStressChange, bestStressChange, performance);
+        stressManager.ModifyStress(stressChange);
+
+        // If game over was triggered by that stress change, stop here
+        if (isGameOver) return;
+
         dialogueManager.gameObject.SetActive(true);
     }
 
+    // ===================== GAME OVER =====================
+
     public void TriggerGameOver()
     {
+        if (isGameOver) return;
+        isGameOver = true;
+
         PauseMusic();
-        if (gameOverScreen) gameOverScreen.SetActive(true);
-        Time.timeScale = 0;
+        PlaySound("fail");
+
+        if (gameOverScreen != null) gameOverScreen.SetActive(true);
+
+        Time.timeScale = 0f;
     }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        isGameOver = false;
+        SceneManager.LoadScene(startMenuSceneName);
+    }
+
+    // ===================== AUDIO =====================
 
     public void PlaySound(string soundName)
     {
@@ -173,6 +225,8 @@ public void EndMinigameScene(bool won)
         if (soundName == "magic") audioSource.PlayOneShot(magicSound);
         if (soundName == "fail") audioSource.PlayOneShot(failSound);
     }
+
+    // ===================== WALK =====================
 
     IEnumerator WalkToCenter()
     {
