@@ -1,14 +1,10 @@
 using UnityEngine;
 
-/// <summary>
-/// Move with LEFT/RIGHT arrows or A/D keys.
-/// Requires: Rigidbody2D (Kinematic), BoxCollider2D, SpriteRenderer.
-/// </summary>
 public class BreakoutPaddle : MonoBehaviour
 {
     [Header("Settings")]
     public float speed    = 10f;
-    public float boundary = 4.5f; // Max X the paddle center can reach
+    public float boundary = 4.5f;
 
     void Awake()
     {
@@ -18,6 +14,14 @@ public class BreakoutPaddle : MonoBehaviour
             sr.sprite = SpriteHelper.Square;
             sr.color  = Color.white;
         }
+
+        // ★ FIX: Manually set collider size so it doesn't fail on empty sprite ★
+        BoxCollider2D col = GetComponent<BoxCollider2D>();
+        if (col != null)
+        {
+            col.size   = new Vector2(1f, 1f);
+            col.offset = Vector2.zero;
+        }
     }
 
     void Update()
@@ -25,7 +29,7 @@ public class BreakoutPaddle : MonoBehaviour
         if (BreakoutGame.Instance == null || !BreakoutGame.Instance.IsPlaying)
             return;
 
-        float input = Input.GetAxis("Horizontal"); // Arrow keys / A & D
+        float input = Input.GetAxis("Horizontal");
 
         Vector3 pos = transform.position;
         pos.x += input * speed * Time.deltaTime;
