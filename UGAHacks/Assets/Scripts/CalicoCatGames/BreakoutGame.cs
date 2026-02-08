@@ -15,26 +15,31 @@ public class BreakoutGame : MonoBehaviour
     public float endDelay = 5f;
 
     [Header("Play Area")]
-    public float areaWidth    = 11f;
-    public float areaHeight   = 11f;
+    public float areaWidth = 11f;
+    public float areaHeight = 11f;
     public float wallThickness = 0.5f;
 
     [Header("Brick Grid")]
-    public int   columns      = 8;
-    public int   rows         = 4;
-    public float brickWidth   = 1.2f;
-    public float brickHeight  = 0.5f;
+    public int columns = 8;
+    public int rows = 4;
+    public float brickWidth = 1.2f;
+    public float brickHeight = 0.5f;
     public float brickSpacing = 0.1f;
-    public float brickStartY  = 3.5f;
+    public float brickStartY = 3.5f;
 
     [Header("UI References (drag these in)")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI livesText;
     public TextMeshProUGUI messageText;
 
+    [Header("Minigame Music")]
+    public AudioSource musicSource;
+    public AudioClip bgmClip;
+    [Range(0f, 1f)] public float musicVolume = 0.5f;
+
     public bool IsPlaying { get; private set; }
-    public int  Score     { get; private set; }
-    public int  Lives     { get; private set; }
+    public int Score { get; private set; }
+    public int Lives { get; private set; }
 
     private int bricksRemaining;
     private GameManager cachedGM;
@@ -70,15 +75,35 @@ public class BreakoutGame : MonoBehaviour
         StartCoroutine(CountdownRoutine());
     }
 
+    // ===================== MUSIC =====================
+
+    void StartMusic()
+    {
+        if (musicSource == null || bgmClip == null) return;
+
+        musicSource.clip = bgmClip;
+        musicSource.loop = true;
+        musicSource.volume = musicVolume;
+        musicSource.Play();
+    }
+
+    void StopMusic()
+    {
+        if (musicSource != null && musicSource.isPlaying)
+            musicSource.Stop();
+    }
+
+    // ===================== WALLS & BRICKS =====================
+
     void CreateWalls()
     {
-        float hw = areaWidth  / 2f;
+        float hw = areaWidth / 2f;
         float hh = areaHeight / 2f;
-        float t  = wallThickness;
+        float t = wallThickness;
 
         MakeWall(new Vector3(-hw - t / 2f, 0, 0),
                  new Vector3(t, areaHeight + t * 2, 1));
-        MakeWall(new Vector3( hw + t / 2f, 0, 0),
+        MakeWall(new Vector3(hw + t / 2f, 0, 0),
                  new Vector3(t, areaHeight + t * 2, 1));
         MakeWall(new Vector3(0, hh + t / 2f, 0),
                  new Vector3(areaWidth + t * 2, t, 1));
@@ -87,12 +112,12 @@ public class BreakoutGame : MonoBehaviour
     void MakeWall(Vector3 pos, Vector3 scale)
     {
         GameObject w = new GameObject("Wall");
-        w.transform.position   = pos;
+        w.transform.position = pos;
         w.transform.localScale = scale;
 
         SpriteRenderer sr = w.AddComponent<SpriteRenderer>();
-        sr.sprite       = SpriteHelper.Square;
-        sr.color        = new Color(0.25f, 0.25f, 0.35f);
+        sr.sprite = SpriteHelper.Square;
+        sr.color = new Color(0.25f, 0.25f, 0.35f);
         sr.sortingOrder = 0;
 
         w.AddComponent<BoxCollider2D>();
@@ -117,12 +142,12 @@ public class BreakoutGame : MonoBehaviour
                 float y = brickStartY - row * (brickHeight + brickSpacing);
 
                 GameObject b = new GameObject($"Brick_{row}_{col}");
-                b.transform.position   = new Vector3(x, y, 0);
+                b.transform.position = new Vector3(x, y, 0);
                 b.transform.localScale = new Vector3(brickWidth, brickHeight, 1);
 
                 SpriteRenderer sr = b.AddComponent<SpriteRenderer>();
-                sr.sprite       = SpriteHelper.Square;
-                sr.color        = color;
+                sr.sprite = SpriteHelper.Square;
+                sr.color = color;
                 sr.sortingOrder = 2;
 
                 b.AddComponent<BoxCollider2D>();
@@ -135,16 +160,20 @@ public class BreakoutGame : MonoBehaviour
         }
     }
 
+    // ===================== GAMEPLAY =====================
+
     IEnumerator CountdownRoutine()
     {
         messageText.gameObject.SetActive(true);
-        messageText.text = "3";  yield return new WaitForSeconds(1f);
-        messageText.text = "2";  yield return new WaitForSeconds(1f);
-        messageText.text = "1";  yield return new WaitForSeconds(1f);
+        messageText.text = "3"; yield return new WaitForSeconds(1f);
+        messageText.text = "2"; yield return new WaitForSeconds(1f);
+        messageText.text = "1"; yield return new WaitForSeconds(1f);
         messageText.text = "GO!";
         yield return new WaitForSeconds(0.5f);
         messageText.gameObject.SetActive(false);
+
         IsPlaying = true;
+        StartMusic();
     }
 
     public void BrickDestroyed()
@@ -169,6 +198,7 @@ public class BreakoutGame : MonoBehaviour
     void EndGame(bool won)
     {
         IsPlaying = false;
+        StopMusic();
 
         messageText.gameObject.SetActive(true);
         messageText.text = won ? "ALL CLEAR!" : "NO LIVES LEFT!";
@@ -181,6 +211,8 @@ public class BreakoutGame : MonoBehaviour
         scoreText.text = $"Score: {Score}";
         livesText.text = $"Lives: {Lives}";
     }
+
+    // ===================== RETURN =====================
 
     IEnumerator ReturnToStageSequence(bool won)
     {

@@ -13,15 +13,17 @@ public class FlappyCatGame : MonoBehaviour
     [Header("UI References (drag these in)")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI messageText;
-    public TextMeshProUGUI instructionText;
     public GameObject gameOverPanel;
     public Button continueButton;
+
+    [Header("Minigame Music")]
+    public AudioSource musicSource;
+    public AudioClip bgmClip;
+    [Range(0f, 1f)] public float musicVolume = 0.5f;
 
     // Other scripts read these
     public bool IsPlaying { get; private set; }
     public int Score { get; private set; }
-
-    private bool lastResult;
 
     void Awake() { Instance = this; }
 
@@ -38,20 +40,42 @@ public class FlappyCatGame : MonoBehaviour
         StartCoroutine(CountdownRoutine());
     }
 
-    // ── Countdown before gameplay begins ──
-    IEnumerator CountdownRoutine()
+    // ===================== MUSIC =====================
+
+    void StartMusic()
     {
-        instructionText.text = "Left-Click Mouse to FLAP!";
-        messageText.gameObject.SetActive(true);
-        messageText.text = "3";  yield return new WaitForSeconds(1f);
-        messageText.text = "2";  yield return new WaitForSeconds(1f);
-        messageText.text = "1";  yield return new WaitForSeconds(1f);
-        yield return new WaitForSeconds(0.5f);
-        messageText.gameObject.SetActive(false);
-        IsPlaying = true;
+        if (musicSource == null || bgmClip == null) return;
+
+        musicSource.clip = bgmClip;
+        musicSource.loop = true;
+        musicSource.volume = musicVolume;
+        musicSource.Play();
     }
 
-    // ── Called by ScoreZone when cat clears a pipe gap ──
+    void StopMusic()
+    {
+        if (musicSource != null && musicSource.isPlaying)
+            musicSource.Stop();
+    }
+
+    // ===================== COUNTDOWN =====================
+
+    IEnumerator CountdownRoutine()
+    {
+        messageText.gameObject.SetActive(true);
+        messageText.text = "3"; yield return new WaitForSeconds(1f);
+        messageText.text = "2"; yield return new WaitForSeconds(1f);
+        messageText.text = "1"; yield return new WaitForSeconds(1f);
+        messageText.text = "FLAP!";
+        yield return new WaitForSeconds(0.5f);
+        messageText.gameObject.SetActive(false);
+
+        IsPlaying = true;
+        StartMusic();
+    }
+
+    // ===================== GAMEPLAY =====================
+
     public void AddScore()
     {
         if (!IsPlaying) return;
@@ -60,7 +84,6 @@ public class FlappyCatGame : MonoBehaviour
         if (Score >= scoreToWin) EndGame(true);
     }
 
-    // ── Called by FlappyCat when it hits something ──
     public void GameOver()
     {
         if (!IsPlaying) return;
@@ -70,7 +93,7 @@ public class FlappyCatGame : MonoBehaviour
     void EndGame(bool won)
     {
         IsPlaying = false;
-        lastResult = won;
+        StopMusic();
 
         gameOverPanel.SetActive(true);
         messageText.gameObject.SetActive(true);
@@ -84,7 +107,8 @@ public class FlappyCatGame : MonoBehaviour
         scoreText.text = $"Score: {Score} / {scoreToWin}";
     }
 
-    // ── Return to main stage ──
+    // ===================== RETURN =====================
+
     IEnumerator AutoReturnRoutine()
     {
         yield return new WaitForSeconds(3f);
@@ -107,9 +131,6 @@ public class FlappyCatGame : MonoBehaviour
             Debug.LogWarning("GameManager not found!");
     }
 
-    /// <summary>
-    /// 0.0 = no pipes cleared, 1.0 = hit or exceeded the target.
-    /// </summary>
     public float GetPerformance()
     {
         return Mathf.Clamp01((float)Score / scoreToWin);

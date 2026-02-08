@@ -26,6 +26,11 @@ public class ClickGameManager : MonoBehaviour
     public float clickScalePunch = 1.4f;
     public float animationSpeed = 8f;
 
+    [Header("Minigame Music")]
+    public AudioSource musicSource;
+    public AudioClip bgmClip;
+    [Range(0f, 1f)] public float musicVolume = 0.5f;
+
     // State
     public int Score { get; private set; }
     public float TimeRemaining { get; private set; }
@@ -61,6 +66,26 @@ public class ClickGameManager : MonoBehaviour
 
         StartGame();
     }
+
+    // ===================== MUSIC =====================
+
+    void StartMusic()
+    {
+        if (musicSource == null || bgmClip == null) return;
+
+        musicSource.clip = bgmClip;
+        musicSource.loop = true;
+        musicSource.volume = musicVolume;
+        musicSource.Play();
+    }
+
+    void StopMusic()
+    {
+        if (musicSource != null && musicSource.isPlaying)
+            musicSource.Stop();
+    }
+
+    // ===================== GAMEPLAY =====================
 
     public void SetPlaying(bool value)
     {
@@ -113,6 +138,8 @@ public class ClickGameManager : MonoBehaviour
         UpdateScoreDisplay();
         UpdateTimerDisplay();
         MoveButtonToRandomPosition();
+
+        StartMusic();
     }
 
     void OnButtonClicked()
@@ -161,9 +188,6 @@ public class ClickGameManager : MonoBehaviour
         timerText.color = TimeRemaining <= 3f ? Color.red : Color.white;
     }
 
-    /// <summary>
-    /// Returns 0.0 (no clicks) to 1.0 (hit or exceeded target).
-    /// </summary>
     public float GetPerformance()
     {
         return Mathf.Clamp01((float)Score / targetScore);
@@ -172,6 +196,8 @@ public class ClickGameManager : MonoBehaviour
     void EndGame()
     {
         IsPlaying = false;
+        StopMusic();
+
         clickButton.interactable = false;
         clickButton.gameObject.SetActive(false);
 
@@ -186,9 +212,12 @@ public class ClickGameManager : MonoBehaviour
         StartCoroutine(ReturnToStageSequence());
     }
 
+    // ===================== RETURN =====================
+
     void ManualReturn()
     {
         StopAllCoroutines();
+        StopMusic();
         ReturnToStage();
     }
 
