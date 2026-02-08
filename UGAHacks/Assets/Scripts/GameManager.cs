@@ -28,6 +28,11 @@ public class GameManager : MonoBehaviour
     public AudioClip magicSound;
     public AudioClip failSound;
 
+    [Header("Background Music")]
+    public AudioSource musicSource;
+    public AudioClip bgmClip;
+    [Range(0f, 1f)] public float musicVolume = 0.5f;
+
     private PatientData currentPatient;
     private string activeMinigameScene;
     private Coroutine walkCoroutine;
@@ -45,6 +50,30 @@ public class GameManager : MonoBehaviour
         {
             patientLookup[p.characterName] = p;
         }
+
+        StartMusic();
+    }
+
+    void StartMusic()
+    {
+        if (musicSource == null || bgmClip == null) return;
+
+        musicSource.clip = bgmClip;
+        musicSource.loop = true;
+        musicSource.volume = musicVolume;
+        musicSource.Play();
+    }
+
+    public void PauseMusic()
+    {
+        if (musicSource != null && musicSource.isPlaying)
+            musicSource.Pause();
+    }
+
+    public void ResumeMusic()
+    {
+        if (musicSource != null && !musicSource.isPlaying)
+            musicSource.UnPause();
     }
 
     public void SpawnPatient(string name)
@@ -55,27 +84,21 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // Reset animator in case it was disabled during TransformPatient
         patientAnimator.enabled = true;
         patientAnimator.runtimeAnimatorController = currentPatient.animator;
         patientAnimator.Rebind();
         patientAnimator.Update(0f);
 
         patientRenderer.color = currentPatient.sickColor;
-
-        // Apply per-patient scale
         patientRenderer.transform.localScale = currentPatient.scale;
 
-        // Safety net sprite
         if (currentPatient.defaultSprite != null)
         {
             patientRenderer.sprite = currentPatient.defaultSprite;
         }
 
-        // Stop any in-progress walk before starting a new one
         if (walkCoroutine != null) StopCoroutine(walkCoroutine);
 
-        // Teleport to spawn and walk in
         patientRenderer.transform.position = spawnPoint.position;
         walkCoroutine = StartCoroutine(WalkToCenter());
 
@@ -98,8 +121,10 @@ public class GameManager : MonoBehaviour
             patientAnimator.enabled = true;
             patientAnimator.runtimeAnimatorController = currentPatient.animator;
             patientAnimator.Rebind();
+            patientAnimator.SetBool("isWalking", false);
             patientAnimator.Update(0f);
-            patientRenderer.color = currentPatient.sickColor;
+
+            patientRenderer.color = currentPatient.curedColor;
         }
     }
 
@@ -109,17 +134,19 @@ public class GameManager : MonoBehaviour
 
         if (stageGroup != null) stageGroup.SetActive(false);
 
+        PauseMusic();
+
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 
 public void EndMinigameScene(bool won)
     {
         SceneManager.UnloadSceneAsync(activeMinigameScene);
-        
-        // Show the stage again
-        if(stageGroup != null) stageGroup.SetActive(true);
-        
-        // Update stress
+
+        if (stageGroup != null) stageGroup.SetActive(true);
+
+        ResumeMusic();
+
         if (won) stressManager.ModifyStress(-20);
         else stressManager.ModifyStress(20);
         
@@ -134,6 +161,7 @@ public void EndMinigameScene(bool won)
 
     public void TriggerGameOver()
     {
+        PauseMusic();
         if (gameOverScreen) gameOverScreen.SetActive(true);
         Time.timeScale = 0;
     }
@@ -153,7 +181,6 @@ public void EndMinigameScene(bool won)
         Vector3 start = spawnPoint.position;
         Vector3 end = centerPoint.position;
 
-        // Start walking animation
         patientAnimator.SetBool("isWalking", true);
 
         while (elapsed < duration)
@@ -164,7 +191,6 @@ public void EndMinigameScene(bool won)
         }
         patientRenderer.transform.position = end;
 
-        // Stop walking animation, return to idle
         patientAnimator.SetBool("isWalking", false);
     }
 }

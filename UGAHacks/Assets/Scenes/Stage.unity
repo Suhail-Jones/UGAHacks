@@ -594,6 +594,9 @@ MonoBehaviour:
   bellSound: {fileID: 8300000, guid: b228a262331045945af2c55cd322c2d0, type: 3}
   magicSound: {fileID: 8300000, guid: 153c4c65dbb82884da15dfd8eba5feef, type: 3}
   failSound: {fileID: 8300000, guid: 90101cfafc7b5cb44a9c87fa1afa43f9, type: 3}
+  musicSource: {fileID: 571208019}
+  bgmClip: {fileID: 8300000, guid: c678933f478762f49a54d6f432fe1198, type: 3}
+  musicVolume: 0.5
 --- !u!114 &571208017
 MonoBehaviour:
   m_ObjectHideFlags: 0
