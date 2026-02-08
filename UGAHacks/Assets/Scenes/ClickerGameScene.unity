@@ -403,7 +403,6 @@ GameObject:
   m_Component:
   - component: {fileID: 193581059}
   - component: {fileID: 193581058}
-  - component: {fileID: 193581057}
   - component: {fileID: 193581060}
   m_Layer: 0
   m_Name: Main Camera
@@ -412,14 +411,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &193581057
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 193581056}
-  m_Enabled: 1
 --- !u!20 &193581058
 Camera:
   m_ObjectHideFlags: 0
@@ -1139,7 +1130,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClickGameManager
   gameDuration: 15
+  targetScore: 15
   buttonPadding: 80
+  endDelay: 5
   clickButton: {fileID: 1125177252}
   scoreText: {fileID: 1046063864}
   timerText: {fileID: 191288704}
