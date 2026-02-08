@@ -9,9 +9,9 @@ public class ClickGameManager : MonoBehaviour
 
     [Header("Game Settings")]
     public float gameDuration = 15f;
-    public int targetScore = 15; // Score needed to "Win" this interaction
-    public float buttonPadding = 80f; // pixels from screen edge
-    public float endDelay = 5f; // Time to wait before returning to stage
+    public int targetScore = 15;
+    public float buttonPadding = 80f;
+    public float endDelay = 5f;
 
     [Header("UI References")]
     public Button clickButton;
@@ -20,7 +20,7 @@ public class ClickGameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI finalScoreText;
     public GameObject gameOverPanel;
-    public Button restartButton; // This now acts as the "Continue/Done" button
+    public Button restartButton;
 
     [Header("Button Animation")]
     public float clickScalePunch = 1.4f;
@@ -50,20 +50,18 @@ public class ClickGameManager : MonoBehaviour
 
         clickButton.onClick.AddListener(OnButtonClicked);
 
-        // Setup the Continue Button to skip the 5s wait
         if (restartButton != null)
         {
             restartButton.onClick.RemoveAllListeners();
             restartButton.onClick.AddListener(ManualReturn);
-            
+
             TextMeshProUGUI btnText = restartButton.GetComponentInChildren<TextMeshProUGUI>();
-            if(btnText != null) btnText.text = "CONTINUE";
+            if (btnText != null) btnText.text = "CONTINUE";
         }
 
         StartGame();
     }
 
-    // --- ADDED THIS BACK SO YOUR COUNTDOWN WORKS ---
     public void SetPlaying(bool value)
     {
         IsPlaying = value;
@@ -86,7 +84,6 @@ public class ClickGameManager : MonoBehaviour
             EndGame();
         }
 
-        // Animate button scale back to normal
         if (isAnimating)
         {
             buttonRect.localScale = Vector3.Lerp(
@@ -130,11 +127,9 @@ public class ClickGameManager : MonoBehaviour
 
     void MoveButtonToRandomPosition()
     {
-        // Get canvas size
         Vector2 canvasSize = canvasRect.sizeDelta;
         Vector2 buttonSize = buttonRect.sizeDelta;
 
-        // Calculate safe bounds (so the button stays fully on screen)
         float halfW = (buttonSize.x / 2f) + buttonPadding;
         float halfH = (buttonSize.y / 2f) + buttonPadding;
 
@@ -163,12 +158,15 @@ public class ClickGameManager : MonoBehaviour
     void UpdateTimerDisplay()
     {
         timerText.text = $"Time: {TimeRemaining:F1}s";
+        timerText.color = TimeRemaining <= 3f ? Color.red : Color.white;
+    }
 
-        // Flash red when low
-        if (TimeRemaining <= 3f)
-            timerText.color = Color.red;
-        else
-            timerText.color = Color.white;
+    /// <summary>
+    /// Returns 0.0 (no clicks) to 1.0 (hit or exceeded target).
+    /// </summary>
+    public float GetPerformance()
+    {
+        return Mathf.Clamp01((float)Score / targetScore);
     }
 
     void EndGame()
@@ -177,18 +175,17 @@ public class ClickGameManager : MonoBehaviour
         clickButton.interactable = false;
         clickButton.gameObject.SetActive(false);
 
+        float performance = GetPerformance();
+
         gameOverPanel.SetActive(true);
         gameOverText.text = "TIME'S UP!";
-        
-        // Check if we hit the target
-        string result = Score >= targetScore ? "SUCCESS!" : "FAILED";
+
+        string result = performance >= 1f ? "SUCCESS!" : "FAILED";
         finalScoreText.text = $"{result}\nScore: {Score} / {targetScore}";
-        
-        // Wait 5 seconds before leaving
+
         StartCoroutine(ReturnToStageSequence());
     }
-    
-    // Allows the player to click "Continue" to skip the 5s wait
+
     void ManualReturn()
     {
         StopAllCoroutines();
@@ -201,27 +198,23 @@ public class ClickGameManager : MonoBehaviour
         ReturnToStage();
     }
 
-    // --- FUNCTION TO GO BACK TO STAGE ---
     void ReturnToStage()
     {
-        bool playerWon = Score >= targetScore;
+        float performance = GetPerformance();
 
-        // 1. Try to find the Minigame Controller
         MinigameController controller = FindObjectOfType<MinigameController>();
-        
+
         if (controller != null)
         {
-            if (playerWon) controller.WinGame();
-            else controller.LoseGame();
+            controller.EndGame(performance);
         }
         else
         {
-            // 2. Fail-Safe: If MinigameController is missing, talk to GameManager directly
             Debug.LogWarning("MinigameController not found! Calling GameManager directly.");
-            
+
             if (GameManager.Instance != null)
             {
-                GameManager.Instance.EndMinigameScene(playerWon);
+                GameManager.Instance.EndMinigameScene(performance);
             }
         }
     }

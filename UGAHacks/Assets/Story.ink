@@ -8,7 +8,6 @@ EXTERNAL EndPatient()
 
 === Start ===
 System: ARCANE WARD - NIGHT SHIFT.
-System: Reputation: STABLE.
 + [Ring the Bell] -> Witch_Start
 
 // ==========================================

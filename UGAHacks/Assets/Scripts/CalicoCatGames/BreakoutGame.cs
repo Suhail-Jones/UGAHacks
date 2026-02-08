@@ -197,9 +197,33 @@ public class BreakoutGame : MonoBehaviour
 
     void ReturnToStage()
     {
+        float performance = GetPerformance();
+
         if (GameManager.Instance != null)
-            GameManager.Instance.EndMinigameScene(lastResult);
+            GameManager.Instance.EndMinigameScene(performance);
         else
             Debug.LogWarning("GameManager not found!");
+    }
+
+    /// <summary>
+    /// Performance based on lives remaining and bricks cleared.
+    /// 1.0 = all bricks destroyed with all lives intact.
+    /// 0.0 = lost all lives with no bricks destroyed.
+    /// </summary>
+    public float GetPerformance()
+    {
+        int totalBricks = columns * rows;
+
+        // How many bricks were destroyed
+        int bricksDestroyed = totalBricks - bricksRemaining;
+        float clearRatio = totalBricks > 0 ? (float)bricksDestroyed / totalBricks : 0f;
+
+        // How many lives survived
+        float lifeRatio = startingLives > 0 ? (float)Lives / startingLives : 0f;
+
+        // Weighted: clearing bricks matters most, surviving lives is a bonus
+        float performance = (clearRatio * 0.7f) + (lifeRatio * 0.3f);
+
+        return Mathf.Clamp01(performance);
     }
 }

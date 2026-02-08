@@ -94,11 +94,19 @@ void ReturnToStage(bool playerWon)
     MinigameController controller = FindObjectOfType<MinigameController>();
     if (controller != null)
     {
-        if (playerWon) controller.WinGame();
-        else controller.LoseGame();
-        return;
+        float performance = GetPerformance();
+
+        if (GameManager.Instance != null)
+            GameManager.Instance.EndMinigameScene(performance);
+        else
+            Debug.LogWarning("GameManager not found!");
     }
 
-    Debug.LogError("No GameManager or MinigameController found — can't return to stage!");
-}
+    /// <summary>
+    /// 0.0 = no pipes cleared, 1.0 = hit or exceeded the target.
+    /// </summary>
+    public float GetPerformance()
+    {
+        return Mathf.Clamp01((float)Score / scoreToWin);
+    }
 }
