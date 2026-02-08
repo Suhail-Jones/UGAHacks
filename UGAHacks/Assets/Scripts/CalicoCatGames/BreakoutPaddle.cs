@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Move with LEFT/RIGHT arrows or A/D keys.
-/// Requires: Rigidbody2D (Kinematic), BoxCollider2D, SpriteRenderer.
-/// </summary>
 public class BreakoutPaddle : MonoBehaviour
 {
     [Header("Settings")]
@@ -17,6 +13,14 @@ public class BreakoutPaddle : MonoBehaviour
         {
             sr.sprite = SpriteHelper.Square;
             sr.color  = Color.white;
+        }
+
+        // ★ FIX: Manually set collider size so it doesn't fail on empty sprite ★
+        BoxCollider2D col = GetComponent<BoxCollider2D>();
+        if (col != null)
+        {
+            col.size   = new Vector2(1f, 1f);
+            col.offset = Vector2.zero;
         }
     }
 

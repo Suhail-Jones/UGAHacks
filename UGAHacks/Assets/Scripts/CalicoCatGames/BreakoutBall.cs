@@ -27,29 +27,35 @@ public class BreakoutBall : MonoBehaviour
     }
 
     void Start()
+{
+    rb = GetComponent<Rigidbody2D>();
+
+    // Create bouncy material
+    PhysicsMaterial2D mat = new PhysicsMaterial2D("Bouncy");
+    mat.bounciness = 1f;
+    mat.friction   = 0f;
+
+    CircleCollider2D col = GetComponent<CircleCollider2D>();
+    if (col != null)
     {
-        rb = GetComponent<Rigidbody2D>();
+        col.sharedMaterial = mat;
 
-        // ── Create a perfectly bouncy physics material in code ──
-        PhysicsMaterial2D mat = new PhysicsMaterial2D("Bouncy");
-        mat.bounciness = 1f;
-        mat.friction   = 0f;
-
-        CircleCollider2D col = GetComponent<CircleCollider2D>();
-        if (col != null) col.sharedMaterial = mat;
-
-        // ── Rigidbody settings ──
-        rb.gravityScale = 0f;
-        rb.linearDamping         = 0f;
-        rb.angularDamping  = 0f;
-        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-        rb.isKinematic  = true;
-
-        // Find the paddle
-        BreakoutPaddle paddle = FindObjectOfType<BreakoutPaddle>();
-        if (paddle != null) paddleTransform = paddle.transform;
+        // ★ FIX: Manually set collider radius ★
+        col.radius = 0.5f;
+        col.offset = Vector2.zero;
     }
 
+    // Rigidbody settings
+    rb.gravityScale = 0f;
+    rb.linearDamping         = 0f;
+    rb.angularDamping  = 0f;
+    rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+    rb.isKinematic  = true;
+
+    // Find the paddle
+    BreakoutPaddle paddle = FindObjectOfType<BreakoutPaddle>();
+    if (paddle != null) paddleTransform = paddle.transform;
+}
     void Update()
     {
         if (!launched)

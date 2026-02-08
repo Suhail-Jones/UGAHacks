@@ -37,21 +37,29 @@ public class BreakoutGame : MonoBehaviour
     public int  Lives     { get; private set; }
 
     private int bricksRemaining;
+    private GameManager cachedGM;
 
     private readonly Color[] rowColors =
     {
-        new Color(1f, 0.3f, 0.3f),   // Red
-        new Color(1f, 0.6f, 0.2f),   // Orange
-        new Color(1f, 1f, 0.3f),     // Yellow
-        new Color(0.3f, 1f, 0.3f),   // Green
-        new Color(0.3f, 0.6f, 1f),   // Blue
-        new Color(0.7f, 0.3f, 1f),   // Purple
+        new Color(1f, 0.3f, 0.3f),
+        new Color(1f, 0.6f, 0.2f),
+        new Color(1f, 1f, 0.3f),
+        new Color(0.3f, 1f, 0.3f),
+        new Color(0.3f, 0.6f, 1f),
+        new Color(0.7f, 0.3f, 1f),
     };
 
     void Awake() { Instance = this; }
 
     void Start()
     {
+        cachedGM = GameManager.Instance;
+        if (cachedGM == null)
+        {
+            GameManager[] all = Resources.FindObjectsOfTypeAll<GameManager>();
+            if (all.Length > 0) cachedGM = all[0];
+        }
+
         Score = 0;
         Lives = startingLives;
         IsPlaying = false;
@@ -62,20 +70,16 @@ public class BreakoutGame : MonoBehaviour
         StartCoroutine(CountdownRoutine());
     }
 
-    // ── Builds the left, right, and top wall colliders ──
     void CreateWalls()
     {
         float hw = areaWidth  / 2f;
         float hh = areaHeight / 2f;
         float t  = wallThickness;
 
-        // Left wall
         MakeWall(new Vector3(-hw - t / 2f, 0, 0),
                  new Vector3(t, areaHeight + t * 2, 1));
-        // Right wall
         MakeWall(new Vector3( hw + t / 2f, 0, 0),
                  new Vector3(t, areaHeight + t * 2, 1));
-        // Top wall
         MakeWall(new Vector3(0, hh + t / 2f, 0),
                  new Vector3(areaWidth + t * 2, t, 1));
     }
@@ -93,12 +97,9 @@ public class BreakoutGame : MonoBehaviour
 
         w.AddComponent<BoxCollider2D>();
 
-        // Ensure wall unloads with this scene
-        UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(
-            w, gameObject.scene);
+        SceneManager.MoveGameObjectToScene(w, gameObject.scene);
     }
 
-    // ── Generates the colored brick grid ──
     void CreateBricks()
     {
         float totalW = columns * (brickWidth + brickSpacing) - brickSpacing;
@@ -127,9 +128,7 @@ public class BreakoutGame : MonoBehaviour
                 b.AddComponent<BoxCollider2D>();
                 b.AddComponent<Brick>();
 
-                // Ensure brick unloads with this scene
-                UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(
-                    b, gameObject.scene);
+                SceneManager.MoveGameObjectToScene(b, gameObject.scene);
 
                 bricksRemaining++;
             }
@@ -148,7 +147,6 @@ public class BreakoutGame : MonoBehaviour
         IsPlaying = true;
     }
 
-    // ── Called by Brick.cs when a brick is destroyed ──
     public void BrickDestroyed()
     {
         Score += 10;
@@ -159,7 +157,6 @@ public class BreakoutGame : MonoBehaviour
             EndGame(true);
     }
 
-    // ── Called by BreakoutBall when ball falls off bottom ──
     public void LoseLife()
     {
         Lives--;
@@ -185,7 +182,6 @@ public class BreakoutGame : MonoBehaviour
         livesText.text = $"Lives: {Lives}";
     }
 
-    // ── Wait, then exit back to main scene ──
     IEnumerator ReturnToStageSequence(bool won)
     {
         yield return new WaitForSeconds(endDelay);
@@ -193,34 +189,37 @@ public class BreakoutGame : MonoBehaviour
     }
 
     void ReturnToStage(bool playerWon)
-{
-    // 1. Primary: Use the singleton
-    GameManager gm = GameManager.Instance;
-
-    // 2. Backup: If singleton is null, search all objects (including inactive)
-    if (gm == null)
     {
-        Debug.LogWarning("GameManager.Instance was null — searching scene...");
+        float performance = playerWon ? 1f : 0f;
+
+        if (cachedGM != null)
+        {
+            cachedGM.EndMinigameScene(performance);
+            return;
+        }
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.EndMinigameScene(performance);
+            return;
+        }
+
         GameManager[] all = Resources.FindObjectsOfTypeAll<GameManager>();
-        if (all.Length > 0) gm = all[0];
-    }
+        if (all.Length > 0)
+        {
+            all[0].EndMinigameScene(performance);
+            return;
+        }
 
-    // 3. Convert bool to float: 1.0 = perfect win, 0.0 = loss
-    if (gm != null)
-    {
-        gm.EndMinigameScene(playerWon ? 1f : 0f);
-        return;
-    }
+        MinigameController controller = FindObjectOfType<MinigameController>();
+        if (controller != null)
+        {
+            if (playerWon) controller.WinGame();
+            else controller.LoseGame();
+            return;
+        }
 
-    // 4. Last resort: try MinigameController
-    MinigameController controller = FindObjectOfType<MinigameController>();
-    if (controller != null)
-    {
-        if (playerWon) controller.WinGame();
-        else controller.LoseGame();
-        return;
+        Debug.LogWarning("GameManager not found — reloading main scene directly.");
+        SceneManager.LoadScene("Stage");
     }
-
-    Debug.LogError("No GameManager or MinigameController found!");
-}
 }
