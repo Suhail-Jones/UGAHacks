@@ -4,13 +4,15 @@ using UnityEngine;
 public class PatientData : ScriptableObject
 {
     public string characterName;
-    public RuntimeAnimatorController animator; 
-    
+    public RuntimeAnimatorController animator;
+
     [Header("Visuals")]
-    public Color sickColor = Color.white;      
-    public Color curedColor = Color.green;     
-    public Color altColor = Color.cyan;        
-    
+    public Sprite defaultSprite;
+    public Color sickColor = Color.white;
+    public Color curedColor = Color.green;
+    public Color altColor = Color.cyan;
+    public Vector3 scale = Vector3.one;    // NEW: per-patient size
+
     [Header("Alternate Forms")]
-    public Sprite idealSelfSprite; // Drag the Calico sprite here in the Inspector
+    public Sprite idealSelfSprite;
 }

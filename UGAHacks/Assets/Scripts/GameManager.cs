@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,60 +11,94 @@ public class GameManager : MonoBehaviour
     public DialogueManager dialogueManager;
     public StressManager stressManager;
     public GameObject gameOverScreen;
-    
-    // NEW: The object that holds all the Stage visuals
-    public GameObject stageGroup; 
+    public GameObject stageGroup;
 
     [Header("Scene Connections")]
-    public SpriteRenderer patientRenderer; 
+    public SpriteRenderer patientRenderer;
     public Animator patientAnimator;
-    public Transform spawnPoint;  
+    public Transform spawnPoint;
     public Transform centerPoint;
 
     [Header("Patient Data")]
-    public PatientData witchKittyData; 
-    public PatientData hoodedGuyData; 
+    public PatientData[] allPatients;
 
     [Header("Audio")]
-    public AudioSource audioSource; 
+    public AudioSource audioSource;
     public AudioClip bellSound;
     public AudioClip magicSound;
     public AudioClip failSound;
 
     private PatientData currentPatient;
     private string activeMinigameScene;
+    private Coroutine walkCoroutine;
+    private Dictionary<string, PatientData> patientLookup;
 
-    void Awake() { if (Instance == null) Instance = this; }
+    void Awake()
+    {
+        if (Instance == null) Instance = this;
+    }
 
-    // --- CALLED BY INK ---
+    void Start()
+    {
+        patientLookup = new Dictionary<string, PatientData>();
+        foreach (var p in allPatients)
+        {
+            patientLookup[p.characterName] = p;
+        }
+    }
+
     public void SpawnPatient(string name)
     {
-        if (name == "witchKitty") currentPatient = witchKittyData;
-        else if (name == "hoodedGuy") currentPatient = hoodedGuyData;
-        else { Debug.LogError("Unknown patient: " + name); return; }
+        if (!patientLookup.TryGetValue(name, out currentPatient))
+        {
+            Debug.LogError("Unknown patient: " + name);
+            return;
+        }
 
-        // Reset to normal form
+        // Reset animator in case it was disabled during TransformPatient
+        patientAnimator.enabled = true;
         patientAnimator.runtimeAnimatorController = currentPatient.animator;
+        patientAnimator.Rebind();
+        patientAnimator.Update(0f);
+
         patientRenderer.color = currentPatient.sickColor;
-        
-        // Teleport and Walk in
+
+        // Apply per-patient scale
+        patientRenderer.transform.localScale = currentPatient.scale;
+
+        // Safety net sprite
+        if (currentPatient.defaultSprite != null)
+        {
+            patientRenderer.sprite = currentPatient.defaultSprite;
+        }
+
+        // Stop any in-progress walk before starting a new one
+        if (walkCoroutine != null) StopCoroutine(walkCoroutine);
+
+        // Teleport to spawn and walk in
         patientRenderer.transform.position = spawnPoint.position;
-        StartCoroutine(WalkToCenter());
-        
+        walkCoroutine = StartCoroutine(WalkToCenter());
+
         PlaySound("bell");
     }
 
     public void TransformPatient(string form)
     {
-        if (currentPatient == witchKittyData && form == "ideal")
+        if (currentPatient == null) return;
+
+        if (form == "ideal" && currentPatient.idealSelfSprite != null)
         {
+            patientAnimator.enabled = false;
             patientRenderer.sprite = currentPatient.idealSelfSprite;
             patientRenderer.color = currentPatient.altColor;
             PlaySound("magic");
         }
         else if (form == "normal")
         {
+            patientAnimator.enabled = true;
             patientAnimator.runtimeAnimatorController = currentPatient.animator;
+            patientAnimator.Rebind();
+            patientAnimator.Update(0f);
             patientRenderer.color = currentPatient.sickColor;
         }
     }
@@ -71,30 +106,28 @@ public class GameManager : MonoBehaviour
     public void LoadMinigameScene(string sceneName)
     {
         activeMinigameScene = sceneName;
-        
-        // NEW: Hide the entire stage (Visuals, Canvas, Camera)
-        if(stageGroup != null) stageGroup.SetActive(false);
 
-        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive); 
+        if (stageGroup != null) stageGroup.SetActive(false);
+
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 
     public void EndMinigameScene(bool won)
     {
         SceneManager.UnloadSceneAsync(activeMinigameScene);
-        
-        // NEW: Show the stage again
-        if(stageGroup != null) stageGroup.SetActive(true);
-        
+
+        if (stageGroup != null) stageGroup.SetActive(true);
+
         if (won) stressManager.ModifyStress(-20);
         else stressManager.ModifyStress(20);
-        
+
         dialogueManager.ContinueStory();
     }
 
     public void TriggerGameOver()
     {
-        if(gameOverScreen) gameOverScreen.SetActive(true);
-        Time.timeScale = 0; 
+        if (gameOverScreen) gameOverScreen.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public void PlaySound(string soundName)
