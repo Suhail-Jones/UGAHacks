@@ -9,6 +9,7 @@ public class StressManager : MonoBehaviour
     public Transform textSpawnPoint;
     public GameObject floatingTextPrefab;
     public GameManager gameManager;
+    public TextMeshProUGUI stressText;
 
     public float currentStress = 0f;
     public float maxStress = 100f;
@@ -47,5 +48,6 @@ public class StressManager : MonoBehaviour
     {
         if (stressSlider) stressSlider.value = currentStress / maxStress;
         if (fillImage) fillImage.color = Color.Lerp(Color.green, Color.red, currentStress / maxStress);
+        if (stressText) stressText.text = $"Stress: {currentStress:F0} / {maxStress:F0}";
     }
 }
