@@ -13,6 +13,7 @@ public class FlappyCatGame : MonoBehaviour
     [Header("UI References (drag these in)")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI messageText;
+    public TextMeshProUGUI instructionText;
     public GameObject gameOverPanel;
     public Button continueButton;
 
@@ -40,11 +41,11 @@ public class FlappyCatGame : MonoBehaviour
     // ── Countdown before gameplay begins ──
     IEnumerator CountdownRoutine()
     {
+        instructionText.text = "Left-Click Mouse to FLAP!";
         messageText.gameObject.SetActive(true);
         messageText.text = "3";  yield return new WaitForSeconds(1f);
         messageText.text = "2";  yield return new WaitForSeconds(1f);
         messageText.text = "1";  yield return new WaitForSeconds(1f);
-        messageText.text = "FLAP!";
         yield return new WaitForSeconds(0.5f);
         messageText.gameObject.SetActive(false);
         IsPlaying = true;

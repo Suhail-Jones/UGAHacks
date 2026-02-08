@@ -179,6 +179,9 @@ public class GameManager : MonoBehaviour
 
         if (stageGroup != null) stageGroup.SetActive(true);
 
+        // Force idle before the next frame renders
+        ResetPatientToIdle();
+
         ResumeMusic();
 
         // Map performance to stress:
@@ -246,5 +249,22 @@ public class GameManager : MonoBehaviour
         patientRenderer.transform.position = end;
 
         patientAnimator.SetBool("isWalking", false);
+    }
+
+    // ===================== ANIMATOR RESET =====================
+
+    /// <summary>
+    /// Resets the patient animator to idle after returning from a minigame.
+    /// Rebind snaps to the default state (Walk), then we immediately
+    /// set isWalking=false and process it so the player only sees Idle.
+    /// </summary>
+    void ResetPatientToIdle()
+    {
+        if (patientAnimator == null || currentPatient == null) return;
+
+        patientAnimator.enabled = true;
+        patientAnimator.Rebind();
+        patientAnimator.SetBool("isWalking", false);
+        patientAnimator.Update(0f);
     }
 }
