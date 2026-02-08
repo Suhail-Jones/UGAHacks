@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ClickerGameScene.unity
     guid: 90d17070f491a5b458ea2bdeb8420813
+  - enabled: 1
+    path: Assets/Scenes/FlappyCatScene.unity
+    guid: 731b8634bd161b846b3fce0d3695040f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

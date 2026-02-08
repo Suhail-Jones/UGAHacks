@@ -10,17 +10,15 @@ public class FlappyCatGame : MonoBehaviour
     [Header("Win Condition")]
     public int scoreToWin = 5;
 
+    [Header("Auto-Return")]
+    public float endDelay = 5f;
+
     [Header("UI References (drag these in)")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI messageText;
-    public GameObject gameOverPanel;
-    public Button continueButton;
 
-    // Other scripts read these
     public bool IsPlaying { get; private set; }
-    public int Score { get; private set; }
-
-    private bool lastResult;
+    public int  Score     { get; private set; }
 
     void Awake() { Instance = this; }
 
@@ -28,12 +26,7 @@ public class FlappyCatGame : MonoBehaviour
     {
         Score = 0;
         IsPlaying = false;
-        gameOverPanel.SetActive(false);
         UpdateScoreDisplay();
-
-        if (continueButton != null)
-            continueButton.onClick.AddListener(ManualReturn);
-
         StartCoroutine(CountdownRoutine());
     }
 
@@ -41,9 +34,9 @@ public class FlappyCatGame : MonoBehaviour
     IEnumerator CountdownRoutine()
     {
         messageText.gameObject.SetActive(true);
-        messageText.text = "3";  yield return new WaitForSeconds(1f);
-        messageText.text = "2";  yield return new WaitForSeconds(1f);
-        messageText.text = "1";  yield return new WaitForSeconds(1f);
+        messageText.text = "3";    yield return new WaitForSeconds(1f);
+        messageText.text = "2";    yield return new WaitForSeconds(1f);
+        messageText.text = "1";    yield return new WaitForSeconds(1f);
         messageText.text = "FLAP!";
         yield return new WaitForSeconds(0.5f);
         messageText.gameObject.SetActive(false);
@@ -69,13 +62,11 @@ public class FlappyCatGame : MonoBehaviour
     void EndGame(bool won)
     {
         IsPlaying = false;
-        lastResult = won;
 
-        gameOverPanel.SetActive(true);
         messageText.gameObject.SetActive(true);
         messageText.text = won ? "PURRFECT!" : "GAME OVER!";
 
-        StartCoroutine(AutoReturnRoutine());
+        StartCoroutine(ReturnToStageSequence(won));
     }
 
     void UpdateScoreDisplay()
@@ -83,24 +74,31 @@ public class FlappyCatGame : MonoBehaviour
         scoreText.text = $"Score: {Score} / {scoreToWin}";
     }
 
-    // ── Return to main stage ──
-    IEnumerator AutoReturnRoutine()
+    // ── Wait, then exit back to main scene ──
+    IEnumerator ReturnToStageSequence(bool won)
     {
-        yield return new WaitForSeconds(3f);
-        ReturnToStage();
+        yield return new WaitForSeconds(endDelay);
+        ReturnToStage(won);
     }
 
-    void ManualReturn()
+void ReturnToStage(bool playerWon)
+{
+    // 1. Primary: Use GameManager directly (lives in the main scene)
+    if (GameManager.Instance != null)
     {
-        StopAllCoroutines();
-        ReturnToStage();
+        GameManager.Instance.EndMinigameScene(playerWon);
+        return;
     }
 
-    void ReturnToStage()
+    // 2. Fallback: Try MinigameController if GameManager isn't available
+    MinigameController controller = FindObjectOfType<MinigameController>();
+    if (controller != null)
     {
-        if (GameManager.Instance != null)
-            GameManager.Instance.EndMinigameScene(lastResult);
-        else
-            Debug.LogWarning("GameManager not found!");
+        if (playerWon) controller.WinGame();
+        else controller.LoseGame();
+        return;
     }
+
+    Debug.LogError("No GameManager or MinigameController found — can't return to stage!");
+}
 }

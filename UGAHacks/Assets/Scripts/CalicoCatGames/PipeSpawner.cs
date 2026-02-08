@@ -1,9 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement; // ← ADDED
 
-/// <summary>
-/// Place this on an EMPTY GameObject at the RIGHT edge of the screen (x ≈ 8).
-/// It spawns pipe pairs at a regular interval while the game is playing.
-/// </summary>
 public class PipeSpawner : MonoBehaviour
 {
     [Header("Timing")]
@@ -13,16 +10,16 @@ public class PipeSpawner : MonoBehaviour
     public float pipeSpeed = 3f;
 
     [Header("Gap Settings")]
-    public float gapSize = 3.0f;      // Vertical space between top & bottom pipe
-    public float minGapY = -1.0f;     // Lowest the gap center can be
-    public float maxGapY = 2.5f;      // Highest the gap center can be
+    public float gapSize = 3.0f;
+    public float minGapY = -1.0f;
+    public float maxGapY = 2.5f;
 
     [Header("Pipe Size")]
     public float pipeWidth = 1.5f;
-    public float pipeHeight = 15f;    // Tall enough to fill the screen
+    public float pipeHeight = 15f;
 
     [Header("Visuals")]
-    public Color pipeColor = new Color(0.3f, 0.8f, 0.3f); // Green
+    public Color pipeColor = new Color(0.3f, 0.8f, 0.3f);
 
     private float timer;
 
@@ -45,6 +42,10 @@ public class PipeSpawner : MonoBehaviour
         // ── Parent holds all parts and moves them together ──
         GameObject pair = new GameObject("PipePair");
         pair.transform.position = new Vector3(transform.position.x, 0f, 0f);
+
+        // ★ MOVE TO THIS SCENE so it unloads with FlappyCatScene ★
+        UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(
+            pair, gameObject.scene);
 
         Pipe pipe = pair.AddComponent<Pipe>();
         pipe.moveSpeed = pipeSpeed;
@@ -81,6 +82,6 @@ public class PipeSpawner : MonoBehaviour
         sr.color = pipeColor;
         sr.sortingOrder = 1;
 
-        obj.AddComponent<BoxCollider2D>(); // Sized automatically to 1×1 local → scaled
+        obj.AddComponent<BoxCollider2D>();
     }
 }
