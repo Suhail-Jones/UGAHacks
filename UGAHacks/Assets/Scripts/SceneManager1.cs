@@ -27,6 +27,9 @@ public class SceneManager1 : MonoBehaviour
 
     public float SongTime => musicSource.time;
     public float SongStartDspTime { get; private set; }
+    
+    // NEW: Tracks the exact second the last note should be hit
+    private float lastNoteTime = 0f;
 
     public event Action<string, int> OnNoteJudged;   
     public event Action<int> OnScoreChanged;
@@ -49,9 +52,26 @@ public class SceneManager1 : MonoBehaviour
         Combo = 0;
         MaxCombo = 0;
         IsPlaying = true;
-        musicSource.clip = currentBeatMap.audioClip;
-        musicSource.PlayDelayed(currentBeatMap.startDelay);
-        SongStartDspTime = (float)AudioSettings.dspTime + currentBeatMap.startDelay;
+        
+        if(currentBeatMap != null && currentBeatMap.audioClip != null)
+        {
+            // 1. CALCULATE END TIME based on the notes
+            lastNoteTime = 0f;
+            foreach (var note in currentBeatMap.notes)
+            {
+                if (note.hitTime > lastNoteTime) 
+                    lastNoteTime = note.hitTime;
+            }
+
+            // 2. Start Audio
+            musicSource.clip = currentBeatMap.audioClip;
+            musicSource.PlayDelayed(currentBeatMap.startDelay);
+            SongStartDspTime = (float)AudioSettings.dspTime + currentBeatMap.startDelay;
+        }
+        else
+        {
+            Debug.LogError("BeatMap or Audio Clip is missing!");
+        }
     }
 
     public float GetCurrentSongTime()
@@ -87,15 +107,48 @@ public class SceneManager1 : MonoBehaviour
 
     void Update()
     {
-        if (IsPlaying && !musicSource.isPlaying && GetCurrentSongTime() > 1f)
-        {
-            IsPlaying = false;
-            OnSongFinished?.Invoke();
+        if (!IsPlaying) return;
 
-            // --- THIS IS THE NEW PART ---
-            // Tell the Minigame Controller we are done
-            MinigameController controller = FindObjectOfType<MinigameController>();
-            if(controller != null) controller.WinGame();
+        float currentTime = GetCurrentSongTime();
+
+        // CHECK END CONDITION:
+        // If current time is past the last note time + a small buffer (1.5 seconds)
+        // The buffer allows the last note to visually clear the screen or be registered as a Miss
+        if (currentTime > lastNoteTime + 1.5f)
+        {
+            EndGame();
+        }
+    }
+
+    void EndGame()
+    {
+        if (!IsPlaying) return;
+        
+        IsPlaying = false;
+        musicSource.Stop(); // Cut the music if it's still playing
+        OnSongFinished?.Invoke();
+
+        ReturnToStage();
+    }
+
+    void ReturnToStage()
+    {
+        // 1. Try to find the Minigame Controller
+        MinigameController controller = FindObjectOfType<MinigameController>();
+        
+        if (controller != null)
+        {
+            controller.WinGame();
+        }
+        else
+        {
+            // 2. Fail-Safe: If MinigameController is missing, talk to GameManager directly
+            Debug.LogWarning("MinigameController not found! Calling GameManager directly.");
+            
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.EndMinigameScene(true);
+            }
         }
     }
 }
