@@ -112,16 +112,24 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 
-    public void EndMinigameScene(bool won)
+public void EndMinigameScene(bool won)
     {
         SceneManager.UnloadSceneAsync(activeMinigameScene);
-
-        if (stageGroup != null) stageGroup.SetActive(true);
-
+        
+        // Show the stage again
+        if(stageGroup != null) stageGroup.SetActive(true);
+        
+        // Update stress
         if (won) stressManager.ModifyStress(-20);
         else stressManager.ModifyStress(20);
-
-        dialogueManager.ContinueStory();
+        
+        // CRITICAL CHANGE: We removed "dialogueManager.ContinueStory();"
+        // The text ("Did it work?") is already waiting in the text box because Ink 
+        // loaded it while starting the game. We just needed to unhide the stage to see it.
+        // The player will click "Continue" manually to read the next line.
+        
+        // Ensure the Dialogue UI is visible (in case it was hidden)
+        dialogueManager.gameObject.SetActive(true);
     }
 
     public void TriggerGameOver()
