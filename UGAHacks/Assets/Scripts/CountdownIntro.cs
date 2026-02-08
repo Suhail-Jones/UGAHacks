@@ -11,11 +11,18 @@ public class CountdownIntro : MonoBehaviour
 
     void Start()
     {
+        // 1. Get the Manager
         gameManager = ClickGameManager.Instance;
 
-        // Pause the game until countdown finishes
-        gameManager.SetPlaying(false);
-        gameManager.clickButton.gameObject.SetActive(false);
+        // 2. PAUSE THE GAME
+        // Since we can't change the private variables inside ClickGameManager,
+        // we simply disable the script. This stops 'Update()' from running,
+        // so the timer won't go down.
+        gameManager.enabled = false;
+
+        // 3. Hide the button so the player can't click
+        if (gameManager.clickButton != null)
+            gameManager.clickButton.gameObject.SetActive(false);
 
         StartCoroutine(RunCountdown());
     }
@@ -27,9 +34,11 @@ public class CountdownIntro : MonoBehaviour
         for (int i = (int)countdownDuration; i > 0; i--)
         {
             countdownText.text = i.ToString();
-            countdownText.fontSize = 120;
+            
+            // Reset scale for punch effect
+            countdownText.transform.localScale = Vector3.one * 1.5f;
 
-            // Quick scale animation
+            // Animate scale over 1 second
             float timer = 0f;
             while (timer < 1f)
             {
@@ -40,16 +49,24 @@ public class CountdownIntro : MonoBehaviour
             }
         }
 
+        // "GO!" Sequence
         countdownText.text = "GO!";
         countdownText.color = Color.green;
+        countdownText.transform.localScale = Vector3.one * 1.5f; // Big pop for GO
+        
         yield return new WaitForSeconds(0.5f);
 
+        // Cleanup Text
         countdownText.gameObject.SetActive(false);
         countdownText.color = Color.white;
 
-        // Now start the actual game
-        gameManager.clickButton.gameObject.SetActive(true);
-        gameManager.SetPlaying(true);
-
+        // 4. UNPAUSE THE GAME
+        // Re-enable the script. The Update() loop will start running again,
+        // and the timer will resume from where it started.
+        gameManager.enabled = true;
+        
+        // Show the button again
+        if (gameManager.clickButton != null)
+            gameManager.clickButton.gameObject.SetActive(true);
     }
 }

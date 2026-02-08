@@ -9,7 +9,9 @@ public class ClickGameManager : MonoBehaviour
 
     [Header("Game Settings")]
     public float gameDuration = 15f;
+    public int targetScore = 15; // Score needed to "Win" this interaction
     public float buttonPadding = 80f; // pixels from screen edge
+    public float endDelay = 5f; // Time to wait before returning to stage
 
     [Header("UI References")]
     public Button clickButton;
@@ -18,7 +20,7 @@ public class ClickGameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI finalScoreText;
     public GameObject gameOverPanel;
-    public Button restartButton;
+    public Button restartButton; // This now acts as the "Continue/Done" button
 
     [Header("Button Animation")]
     public float clickScalePunch = 1.4f;
@@ -48,10 +50,27 @@ public class ClickGameManager : MonoBehaviour
 
         clickButton.onClick.AddListener(OnButtonClicked);
 
+        // Setup the Continue Button to skip the 5s wait
         if (restartButton != null)
-            restartButton.onClick.AddListener(RestartGame);
+        {
+            restartButton.onClick.RemoveAllListeners();
+            restartButton.onClick.AddListener(ManualReturn);
+            
+            TextMeshProUGUI btnText = restartButton.GetComponentInChildren<TextMeshProUGUI>();
+            if(btnText != null) btnText.text = "CONTINUE";
+        }
 
         StartGame();
+    }
+
+    // --- ADDED THIS BACK SO YOUR COUNTDOWN WORKS ---
+    public void SetPlaying(bool value)
+    {
+        IsPlaying = value;
+        if (value)
+        {
+            clickButton.interactable = true;
+        }
     }
 
     void Update()
@@ -160,18 +179,50 @@ public class ClickGameManager : MonoBehaviour
 
         gameOverPanel.SetActive(true);
         gameOverText.text = "TIME'S UP!";
-        finalScoreText.text = $"Final Score: {Score}";
+        
+        // Check if we hit the target
+        string result = Score >= targetScore ? "SUCCESS!" : "FAILED";
+        finalScoreText.text = $"{result}\nScore: {Score} / {targetScore}";
+        
+        // Wait 5 seconds before leaving
+        StartCoroutine(ReturnToStageSequence());
+    }
+    
+    // Allows the player to click "Continue" to skip the 5s wait
+    void ManualReturn()
+    {
+        StopAllCoroutines();
+        ReturnToStage();
     }
 
-    public void RestartGame()
+    IEnumerator ReturnToStageSequence()
     {
-        buttonRect.localScale = buttonOriginalScale;
-        isAnimating = false;
-        StartGame();
+        yield return new WaitForSeconds(endDelay);
+        ReturnToStage();
     }
 
-    public void SetPlaying(bool value)
+    // --- FUNCTION TO GO BACK TO STAGE ---
+    void ReturnToStage()
     {
-        IsPlaying = value;
+        bool playerWon = Score >= targetScore;
+
+        // 1. Try to find the Minigame Controller
+        MinigameController controller = FindObjectOfType<MinigameController>();
+        
+        if (controller != null)
+        {
+            if (playerWon) controller.WinGame();
+            else controller.LoseGame();
+        }
+        else
+        {
+            // 2. Fail-Safe: If MinigameController is missing, talk to GameManager directly
+            Debug.LogWarning("MinigameController not found! Calling GameManager directly.");
+            
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.EndMinigameScene(playerWon);
+            }
+        }
     }
 }
