@@ -193,6 +193,11 @@ public class GameManager : MonoBehaviour
         dialogueManager.gameObject.SetActive(true);
     }
 
+     public void WinGame()
+    {
+        PauseMusic();
+        SceneManager.LoadScene("WinScene");
+    }
     // ===================== GAME OVER =====================
 
     public void TriggerGameOver()

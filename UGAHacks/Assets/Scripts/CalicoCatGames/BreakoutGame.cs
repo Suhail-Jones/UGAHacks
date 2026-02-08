@@ -165,6 +165,7 @@ public class BreakoutGame : MonoBehaviour
     IEnumerator CountdownRoutine()
     {
         messageText.gameObject.SetActive(true);
+        messageText.text = "Click Space to Launch the Ball!"; yield return new WaitForSeconds(2f);
         messageText.text = "3"; yield return new WaitForSeconds(1f);
         messageText.text = "2"; yield return new WaitForSeconds(1f);
         messageText.text = "1"; yield return new WaitForSeconds(1f);
