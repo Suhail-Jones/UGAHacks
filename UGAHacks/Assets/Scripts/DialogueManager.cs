@@ -2,115 +2,100 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Ink.Runtime;
-using System.Collections.Generic;
 
 public class DialogueManager : MonoBehaviour
 {
-    [Header("Ink Story")]
     public TextAsset inkJSON;
-    private Story story;
-
-    [Header("External Connections")]
     public GameManager gameManager;
-
-    [Header("UI Components")]
     public TextMeshProUGUI storyText; 
     
-    // THE NEW WAY: Drag your 2 actual buttons here
+    [Header("Choice Buttons")]
     public Button choiceButton1; 
-    public Button choiceButton2;
-
-    // THE INVISIBLE BUTTON: Drag a button that covers the screen here
+    public Button choiceButton2; 
+    public Button choiceButton3; // NEW 3rd Button
     public Button continueButton; 
 
-    void Start()
-    {
-        StartStory();
-    }
+    private Story story;
+
+    void Start() { StartStory(); }
 
     void StartStory()
     {
         story = new Story(inkJSON.text);
 
-        // --- BIND FUNCTIONS ---
+        // Bindings matching Story.ink
         story.BindExternalFunction("Spawn", (string name) => gameManager.SpawnPatient(name));
-        story.BindExternalFunction("ChangeState", (string state) => gameManager.ChangePatientState(state));
-        story.BindExternalFunction("PlaySound", (string soundName) => gameManager.PlaySound(soundName));
+        story.BindExternalFunction("Transform", (string form) => gameManager.TransformPatient(form));
+        story.BindExternalFunction("LoadMinigame", (string name) => gameManager.LoadMinigameScene(name));
+        story.BindExternalFunction("Stress", (float val) => gameManager.stressManager.ModifyStress(val));
+        story.BindExternalFunction("EndPatient", () => gameManager.stressManager.FinalizeReputation());
 
-        // Setup the Continue Button
-        continueButton.onClick.RemoveAllListeners();
-        continueButton.onClick.AddListener(() => RefreshUI());
-
+        continueButton.onClick.AddListener(()=>RefreshUI());
         RefreshUI();
+    }
+    
+    public void ContinueStory() { RefreshUI(); }
+
+    void Update()
+    {
+        // Add Keyboard support for the 3rd choice
+        if (story.currentChoices.Count > 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) 
+                MakeChoice(0);
+            if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2)) 
+                MakeChoice(1);
+            if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3)) 
+                MakeChoice(2);
+        }
+    }
+
+    void MakeChoice(int index)
+    {
+        if (index < story.currentChoices.Count)
+        {
+            story.ChooseChoiceIndex(index);
+            RefreshUI();
+        }
     }
 
     void RefreshUI()
     {
-        // 1. RESET BUTTONS (Turn them off and clear old clicks)
+        // 1. Hide Everything
         choiceButton1.gameObject.SetActive(false);
-        choiceButton1.onClick.RemoveAllListeners();
-        
         choiceButton2.gameObject.SetActive(false);
-        choiceButton2.onClick.RemoveAllListeners();
+        choiceButton3.gameObject.SetActive(false);
+        continueButton.gameObject.SetActive(false);
 
-        // 2. READ NEXT LINE (If available)
+        // 2. Show Text if available
         if (story.canContinue)
         {
-            string text = story.Continue();
-            storyText.text = text;
-            
-            // Check for tags
-            foreach(var tag in story.currentTags)
-            {
-                if(tag.Contains("spawn:skeleton")) gameManager.SpawnPatient("skeleton");
-                if(tag.Contains("spawn:swampy")) gameManager.SpawnPatient("swampy");
-            }
-        }
-
-        // 3. SHOW CHOICES OR SHOW TEXT
-        if (story.currentChoices.Count > 0)
-        {
-            // --- CHOICE MODE ---
-            // HIDE THE STORY TEXT (Per your request)
-            storyText.gameObject.SetActive(false);
-            
-            // Hide the continue button so they MUST pick an option
-            continueButton.gameObject.SetActive(false);
-
-            // --- SETUP BUTTON 1 ---
-            if (story.currentChoices.Count >= 1)
-            {
-                var choice = story.currentChoices[0];
-                choiceButton1.gameObject.SetActive(true); // Turn it on
-                choiceButton1.GetComponentInChildren<TextMeshProUGUI>().text = choice.text;
-                
-                choiceButton1.onClick.AddListener(() => {
-                    story.ChooseChoiceIndex(choice.index);
-                    RefreshUI();
-                });
-            }
-
-            // --- SETUP BUTTON 2 ---
-            if (story.currentChoices.Count >= 2)
-            {
-                var choice = story.currentChoices[1];
-                choiceButton2.gameObject.SetActive(true); // Turn it on
-                choiceButton2.GetComponentInChildren<TextMeshProUGUI>().text = choice.text;
-                
-                choiceButton2.onClick.AddListener(() => {
-                    story.ChooseChoiceIndex(choice.index);
-                    RefreshUI();
-                });
-            }
-        }
-        else
-        {
-            // --- TEXT READING MODE ---
-            // SHOW THE STORY TEXT
             storyText.gameObject.SetActive(true);
-
-            // No choices? Show the invisible "Next" button so clicking anywhere advances text
+            storyText.text = story.Continue();
             continueButton.gameObject.SetActive(true);
         }
+        // 3. Show Choices if available
+        else if (story.currentChoices.Count > 0)
+        {
+            storyText.gameObject.SetActive(false); // Hide story text to focus on choices
+            
+            if (story.currentChoices.Count >= 1) SetupBtn(choiceButton1, 0, story.currentChoices[0]);
+            if (story.currentChoices.Count >= 2) SetupBtn(choiceButton2, 1, story.currentChoices[1]);
+            if (story.currentChoices.Count >= 3) SetupBtn(choiceButton3, 2, story.currentChoices[2]);
+        }
+    }
+
+    void SetupBtn(Button btn, int index, Choice choice)
+    {
+        btn.gameObject.SetActive(true);
+        
+        // FORMATTING: This creates the "[1] Response" style you requested
+        string formattedText = "[" + (index + 1) + "] " + choice.text;
+        btn.GetComponentInChildren<TextMeshProUGUI>().text = formattedText;
+        
+        btn.onClick.RemoveAllListeners();
+        btn.onClick.AddListener(() => {
+            MakeChoice(index);
+        });
     }
 }

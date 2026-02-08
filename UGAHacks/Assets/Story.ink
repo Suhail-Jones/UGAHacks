@@ -1,160 +1,176 @@
-﻿// Define external functions for Unity to read
-EXTERNAL Spawn(name)
-EXTERNAL ChangeState(state)
-EXTERNAL PlaySound(soundName)
+﻿EXTERNAL Spawn(name)
+EXTERNAL Transform(form)
+EXTERNAL LoadMinigame(sceneName)
+EXTERNAL Stress(amount)
+EXTERNAL EndPatient()
 
-// Variables to track game state
-VAR skeleton_status = "unknown"
-VAR mushroom_status = "unknown"
+-> Start
 
--> Intro
+=== Start ===
+System: ARCANE WARD - NIGHT SHIFT.
+System: Reputation: STABLE.
++ [Ring the Bell] -> Witch_Start
 
-=== Intro ===
-# background:clinic_morning
-# audio:bell_chime
-System: The Arcane Ward is open.
-System: You are the Shift Wizard. Your job is to heal, not just fix.
-System: Dr. Barker (that's you) adjusts his wizard hat.
-+ [Call the first patient] 
-    -> Skeleton_Entrance
+// ==========================================
+// PATIENT 1: WITCH KITTY
+// ==========================================
 
-// ---------------------------------------------------------
-// PATIENT 1: THE SKELETON (BURNOUT)
-// Time Estimate: 1:30
-// ---------------------------------------------------------
+=== Witch_Start ===
+~ Spawn("witchKitty")
+WitchKitty: "U-um... hello? Is this the clinic?"
+WitchKitty: "I need a... a personality transplant."
 
-=== Skeleton_Entrance ===
-# spawn:skeleton
-# audio:bones_rattling
-System: A Skeleton stumbles in. He is vibrating. Smoke rises from his joints.
-Skeleton: "D-doc... I need a stamina potion. Just a small one."
-Skeleton: "I have three raids to lead, a dungeon to build, and... and my femur is cracking."
-+ [Ask him to sit down]
-    Skeleton: "I CAN'T SIT! If I sit, the guilt sets in. I have to keep moving."
-    Skeleton: "Just cast *Haste* on me and I'll go."
-    
-    ++ [Diagnose: He is overheating.] -> Skeleton_Diagnosis
+// --- CHOICE SET 1 ---
+WitchKitty: "Everyone loves Calico cats. I'm just a black cat. It's unlucky."
++ [Luck is a superstition.] 
+    ~ Stress(-5)
+    WitchKitty: "I guess... but people still cross the street."
++ [You look cool to me.] 
+    ~ Stress(-10)
+    WitchKitty: "Really? You like the hat?"
++ [Yeah, black cats are bad omens.] 
+    ~ Stress(20)
+    WitchKitty: "I KNEW IT! I'm cursed!"
 
-=== Skeleton_Diagnosis ===
-System: You inspect his soul. It is bright orange. Overheated.
-System: He doesn't need speed. He needs to stop.
-Skeleton: "Doc, please! I'm falling behind!"
+- // <--- THIS DASH IS A 'GATHER'. IT CATCHES ALL CHOICES ABOVE.
 
-// THE CHOICE
-+ [Choice A: Cast 'Calcify' (Force him to hold it together)]
-    -> Skeleton_MiniGame_Bad
-+ [Choice B: Cast 'Ventilation' (Release the pressure)]
-    -> Skeleton_MiniGame_Good
+// --- CHOICE SET 2 ---
+WitchKitty: "I tried casting a glamour spell to look like her."
++ [Magic can't fix self-worth.] 
+    ~ Stress(5)
+    WitchKitty: "But it can fix my fur color!"
++ [Show me the spell.] 
+    ~ Stress(0)
+    WitchKitty: "Okay, stand back!"
++ [That is forbidden magic!] 
+    ~ Stress(15)
+    WitchKitty: "I don't care! I need to change!"
 
-// --- MINI GAME SECTION ---
+- // <--- GATHER
 
-=== Skeleton_MiniGame_Bad ===
-System: [MINIGAME START: DRAW A SQUARE]
-System: You trace the Rune of Stasis to harden his bones.
-// In Unity, you will trigger the drawing game here.
-// If Win -> Go to Success. If Lose -> Go to Fail.
--> Skeleton_Outcome_Bad
+// --- TRANSFORMATION ---
+~ Transform("ideal")
+System: ILLUSION CASTING... SYNC THE MANA WAVES.
+~ LoadMinigame("RhythmGameScene") 
+-> Witch_Midpoint
 
-=== Skeleton_MiniGame_Good ===
-System: [MINIGAME START: DRAW A SPIRAL]
-System: You trace the Rune of Air to cool his core.
--> Skeleton_Outcome_Good
+=== Witch_Midpoint ===
+WitchKitty: "Did it work? Am I... perfect?"
+WitchKitty: "It feels tight. Like wearing a mask."
 
-// --- OUTCOMES ---
+// --- CHOICE SET 3 ---
+WitchKitty: "I can't maintain this. It's draining my mana."
++ [Drop the spell.] 
+    ~ Stress(-10)
+    ~ Transform("normal")
+    WitchKitty: "Phew... that's better."
++ [Push through the pain.] 
+    ~ Stress(20)
+    WitchKitty: "Ow! It burns!"
++ [Adjust the mana flow.] 
+    ~ Stress(0)
+    WitchKitty: "I'm trying... but it's slipping."
 
-=== Skeleton_Outcome_Bad ===
-# audio:ice_crack
-~ ChangeState("frozen")
-System: The smoke stops instantly. The Skeleton freezes in place.
-Skeleton: "Oh. Wow. I feel... solid. Unbreakable."
-Skeleton: "I don't feel tired anymore. I don't feel anything."
-Skeleton: "Back to work."
-System: He marches out mechanically. He is efficient, but he is no longer alive.
--> Mushroom_Entrance
+- // <--- GATHER
 
-=== Skeleton_Outcome_Good ===
-# audio:steam_hiss
-~ ChangeState("cured")
-System: A massive hiss of steam escapes his ribcage. He collapses into the chair.
-Skeleton: "..."
-Skeleton: "I... I think I just fell asleep for a second."
-Skeleton: "It's quiet. The panic is gone."
-Skeleton: "Maybe... maybe I'll take the day off."
-System: He walks out slowly, humming a tune.
--> Mushroom_Entrance
+// --- CHOICE SET 4 ---
+WitchKitty: "Maybe I don't need to be Calico. Maybe I just need to be a better Witch."
++ [Focus on your craft.] 
+    ~ Stress(-5)
++ [Black cats are classic witches.] 
+    ~ Stress(-10)
++ [Just become a dog instead.] 
+    ~ Stress(30)
+    WitchKitty: "Gross! No!"
 
-// ---------------------------------------------------------
-// PATIENT 2: THE MUSHROOM (TOXIC POSITIVITY)
-// Time Estimate: 1:30
-// ---------------------------------------------------------
+- // <--- GATHER
 
-=== Mushroom_Entrance ===
-# spawn:swampy
-# audio:squish_step
-System: A small Mushroom Person hops in. He is smiling wide.
-Mushroom: "Good morning Dr. Barker! Isn't it a lovely day!"
-Mushroom: "I'm just here for a checkup! Everything is perfect!"
-+ [Point out the green slime leaking from his ear]
-    Mushroom: "Oh, that? Just a little happy-leak! Nothing to worry about!"
-    Mushroom: "I just focus on the good vibes!"
-    
-    ++ [Diagnose: He is rotting from the inside.] -> Mushroom_Diagnosis
+// --- MINIGAME 2 ---
+System: MANA OVERFLOW DETECTED.
+~ LoadMinigame("ClickerGameScene")
+-> Witch_End
 
-=== Mushroom_Diagnosis ===
-System: You inspect his soul. It is dark sludge.
-System: He is repressing so much sadness that it is physically melting him.
-Mushroom: "I just need a 'Sparkle Spell' to clean this slime up! Can you do that?"
+=== Witch_End ===
+WitchKitty: "I think I'll keep the hat. It suits me."
+~ EndPatient()
+System: PATIENT DISCHARGED.
++ [Call Next Patient] -> Hood_Start
 
-// THE CHOICE
-+ [Choice A: Cast 'Polish' (Make him look pretty)]
-    -> Mushroom_MiniGame_Bad
-+ [Choice B: Cast 'Prune' (Cut out the rot)]
-    -> Mushroom_MiniGame_Good
+// ==========================================
+// PATIENT 2: HOODED GUY
+// ==========================================
 
-// --- MINI GAME SECTION ---
+=== Hood_Start ===
+~ Spawn("hoodedGuy")
+HoodedGuy: "..."
+HoodedGuy: (He stands in the corner, hiding in his robe.)
 
-=== Mushroom_MiniGame_Bad ===
-System: [MINIGAME START: DRAW A STAR]
-System: You trace the Rune of Glamour to hide the mess.
--> Mushroom_Outcome_Bad
+// --- CHOICE SET 1 ---
+HoodedGuy: "Too... many... eyes..."
++ [It's just me here.] 
+    ~ Stress(-5)
+    HoodedGuy: "Just you? Okay..."
++ [Speak up!] 
+    ~ Stress(15)
+    HoodedGuy: "eep!"
++ [I cast 'Zone of Privacy'.] 
+    ~ Stress(-10)
+    HoodedGuy: "Oh... the silence is nice."
 
-=== Mushroom_MiniGame_Good ===
-System: [MINIGAME START: DRAW A JAGGED LINE]
-System: You trace the Rune of Truth. It will hurt, but it will heal.
--> Mushroom_Outcome_Good
+- // <--- GATHER
 
-// --- OUTCOMES ---
+// --- CHOICE SET 2 ---
+HoodedGuy: "I wanted to join the guild. But I froze."
++ [Take deep breaths.] 
+    ~ Stress(-5)
++ [Just kick the door down.] 
+    ~ Stress(10)
++ [Try a disguise potion.] 
+    ~ Stress(0)
+    HoodedGuy: "Maybe... a mask would help."
 
-=== Mushroom_Outcome_Bad ===
-# audio:sparkle_chime
-~ ChangeState("cured") 
-// Note: We use "cured" sprite here because he looks happy, but the text reveals the horror.
-System: He sparkles brightly. The slime is hidden under a layer of glitter.
-Mushroom: "Yay! Look at me! I'm perfect again!"
-Mushroom: "I'll go show everyone how happy I am!"
-System: As he leaves, you see a trail of slime behind him. He hasn't changed. He will dissolve soon.
--> Outro
+- // <--- GATHER
 
-=== Mushroom_Outcome_Good ===
-# audio:squish_pop
-~ ChangeState("frozen")
-// Note: We use "frozen" sprite (Blue/Sad) to represent him finally crying.
-System: You cut the repression. The smile drops.
-Mushroom: "Ouch! That... that isn't very positive!"
-Mushroom: "I... I..."
-Mushroom: "I'm actually really lonely, Doctor."
-System: He starts to cry. The slime turns into clear water.
-Mushroom: "It feels good to say that. Thank you."
--> Outro
+// --- MINIGAME 1 ---
+System: ANXIETY SPIKE. DEFLECT THE NEGATIVE THOUGHTS.
+~ LoadMinigame("PongGameScene")
+-> Hood_Midpoint
 
-// ---------------------------------------------------------
-// OUTRO (THE PITCH)
-// Time Estimate: 0:30
-// ---------------------------------------------------------
+=== Hood_Midpoint ===
+HoodedGuy: "Okay... I blocked them out."
+HoodedGuy: "But what if I trip? What if I say something dumb?"
 
-=== Outro ===
-System: Shift Complete.
-System: The Ward is empty.
-System: You hang up your Wizard Hat.
-System: Sometimes magic isn't about sparkles. Sometimes it's about listening.
+// --- CHOICE SET 3 ---
+HoodedGuy: "Maybe I should just stay home forever."
++ [Isolation feeds fear.] 
+    ~ Stress(-5)
++ [Home is safe.] 
+    ~ Stress(5)
+    HoodedGuy: "It is... but it's lonely."
++ [I'll teleport you there.] 
+    ~ Stress(0)
+    HoodedGuy: "No wait! I want to try."
+
+- // <--- GATHER
+
+// --- CHOICE SET 4 ---
+HoodedGuy: "I think I'm ready to try. Just a little step."
++ [I believe in you.] 
+    ~ Stress(-10)
++ [Don't mess up.] 
+    ~ Stress(20)
++ [Take this luck charm.] 
+    ~ Stress(-5)
+
+- // <--- GATHER
+
+// --- MINIGAME 2 ---
+System: SOCIAL NAVIGATOR INITIALIZED.
+~ LoadMinigame("FlappyGameScene")
+-> Hood_End
+
+=== Hood_End ===
+HoodedGuy: "I... I think I can do this."
+~ EndPatient()
+System: SHIFT COMPLETE.
 -> END
