@@ -832,7 +832,7 @@ MonoBehaviour:
   bgmClip: {fileID: 8300000, guid: c678933f478762f49a54d6f432fe1198, type: 3}
   musicVolume: 0.5
   gameOverScreen: {fileID: 1516267524}
-  restartButton: {fileID: 0}
+  restartButton: {fileID: 893501259}
   startMenuSceneName: StartScene
   worstStressChange: 25
   bestStressChange: -25
@@ -854,7 +854,7 @@ MonoBehaviour:
   floatingTextPrefab: {fileID: 4110183735030618982, guid: e5b98f055e0e1bd479877dd0a11c6d59, type: 3}
   gameManager: {fileID: 571208016}
   currentStress: 0
-  maxStress: 100
+  maxStress: 50
 --- !u!4 &571208018
 Transform:
   m_ObjectHideFlags: 0
