@@ -145,6 +145,10 @@ public class GameManager : MonoBehaviour
             patientAnimator.SetBool("isWalking", false);
             patientAnimator.Update(0f);
 
+            // Explicitly restore original sprite in case animator doesn't control it
+            if (currentPatient.defaultSprite != null)
+                patientRenderer.sprite = currentPatient.defaultSprite;
+
             patientRenderer.color = currentPatient.curedColor;
         }
     }
