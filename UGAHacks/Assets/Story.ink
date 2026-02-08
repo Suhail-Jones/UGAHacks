@@ -101,7 +101,7 @@ System: PATIENT DISCHARGED.
 // ==========================================
 
 === Hood_Start ===
-~ Spawn("hoodedGuy")
+~ Spawn("calicoKitty")
 HoodedGuy: "..."
 HoodedGuy: (He stands in the corner, hiding in his robe.)
 

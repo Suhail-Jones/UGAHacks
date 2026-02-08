@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d23a0825756cb4e9d7c7122717a2ff, type: 3}
+  m_Name: CalicoKitty
+  m_EditorClassIdentifier: Assembly-CSharp::PatientData
+  characterName: calicoKitty
+  animator: {fileID: 9100000, guid: 5635c8dcfe8e2d9459e2e7b08233dd48, type: 2}
+  defaultSprite: {fileID: -7480405058247820804, guid: 4a79a7dba52e78543b4f4d2116f4db65, type: 3}
+  sickColor: {r: 0.37254903, g: 0.6039216, b: 0.39215687, a: 1}
+  curedColor: {r: 1, g: 1, b: 1, a: 1}
+  altColor: {r: 1, g: 1, b: 1, a: 1}
+  scale: {x: 6.5, y: 6.5, z: 1}
+  idealSelfSprite: {fileID: -7480405058247820804, guid: 4a79a7dba52e78543b4f4d2116f4db65, type: 3}
