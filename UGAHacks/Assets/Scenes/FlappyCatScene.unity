@@ -1200,9 +1200,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlappyCatGame
   scoreToWin: 5
-  endDelay: 5
   scoreText: {fileID: 586908646}
   messageText: {fileID: 1236136671}
+  gameOverPanel: {fileID: 290769401}
+  continueButton: {fileID: 0}
 --- !u!4 &2129795607
 Transform:
   m_ObjectHideFlags: 0
