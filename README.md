@@ -1,6 +1,6 @@
-Team Members: Vithaal Dhamodharan & Suhail Jones
-Purpose: We wanted to make a game that aligned with the hackathon's theme and addressed an important issue in our age group (mental health).
-Tools Used: unity, c#, ink, itch.io, gemini, claude, visual-studio, github
-Problems We Ran Into: 
-- We initially struggled with a serious mind block when it came to coming up with a good project idea. When we decided to instead pivot to creating a game, we suddenly had a much easier time coming up with things to make. 
-- Another issue we ran into was that Vithaal was new to Unity, so it was a learning curve for him to get used to the new software and interface.
+-Team Members: Vithaal Dhamodharan & Suhail Jones
+-Purpose: We wanted to make a game that aligned with the hackathon's theme and addressed an important issue in our age group (mental health).
+-Tools Used: unity, c#, ink, itch.io, gemini, claude, visual-studio, github
+-Problems We Ran Into: 
+    - We initially struggled with a serious mind block when it came to coming up with a good project idea. When we decided to instead pivot to creating a game, we suddenly had a much easier time coming up with things to make. 
+    - Another issue we ran into was that Vithaal was new to Unity, so it was a learning curve for him to get used to the new software and interface.
