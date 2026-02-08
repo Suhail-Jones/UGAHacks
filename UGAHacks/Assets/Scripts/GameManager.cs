@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     private Coroutine walkCoroutine;
     private Dictionary<string, PatientData> patientLookup;
     private bool isGameOver = false;
+    private bool isTransformed = false;
 
     void Awake()
     {
@@ -105,6 +106,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        isTransformed = false;
+
         patientAnimator.enabled = true;
         patientAnimator.runtimeAnimatorController = currentPatient.animator;
         patientAnimator.Rebind();
@@ -135,6 +138,7 @@ public class GameManager : MonoBehaviour
             patientAnimator.enabled = false;
             patientRenderer.sprite = currentPatient.idealSelfSprite;
             patientRenderer.color = currentPatient.altColor;
+            isTransformed = true;
             PlaySound("magic");
         }
         else if (form == "normal")
@@ -145,20 +149,17 @@ public class GameManager : MonoBehaviour
             patientAnimator.SetBool("isWalking", false);
             patientAnimator.Update(0f);
 
-            // Explicitly restore original sprite in case animator doesn't control it
             if (currentPatient.defaultSprite != null)
                 patientRenderer.sprite = currentPatient.defaultSprite;
 
             patientRenderer.color = currentPatient.curedColor;
+            isTransformed = false;
         }
     }
 
-    /// <summary>
-    /// Called by Ink's EndPatient(). Stress persists across patients.
-    /// </summary>
     public void OnEndPatient()
     {
-        // No reputation, no stress reset — stress carries across the full shift
+        isTransformed = false;
     }
 
     // ===================== MINIGAMES =====================
@@ -174,28 +175,19 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }
 
-    /// <summary>
-    /// Called when a minigame ends. Performance is 0.0 (terrible) to 1.0 (perfect).
-    /// </summary>
     public void EndMinigameScene(float performance)
     {
         SceneManager.UnloadSceneAsync(activeMinigameScene);
 
         if (stageGroup != null) stageGroup.SetActive(true);
 
-        // Force idle before the next frame renders
         ResetPatientToIdle();
 
         ResumeMusic();
 
-        // Map performance to stress:
-        //   0.0 → worstStressChange  (+25 by default)
-        //   0.5 → 0 stress change
-        //   1.0 → bestStressChange   (-25 by default)
         float stressChange = Mathf.Lerp(worstStressChange, bestStressChange, performance);
         stressManager.ModifyStress(stressChange);
 
-        // If game over was triggered by that stress change, stop here
         if (isGameOver) return;
 
         dialogueManager.gameObject.SetActive(true);
@@ -257,14 +249,12 @@ public class GameManager : MonoBehaviour
 
     // ===================== ANIMATOR RESET =====================
 
-    /// <summary>
-    /// Resets the patient animator to idle after returning from a minigame.
-    /// Rebind snaps to the default state (Walk), then we immediately
-    /// set isWalking=false and process it so the player only sees Idle.
-    /// </summary>
     void ResetPatientToIdle()
     {
         if (patientAnimator == null || currentPatient == null) return;
+
+        // Don't override an active transform (e.g. calico form)
+        if (isTransformed) return;
 
         patientAnimator.enabled = true;
         patientAnimator.Rebind();

@@ -15,7 +15,7 @@ MonoBehaviour:
   characterName: calicoKitty
   animator: {fileID: 9100000, guid: 5635c8dcfe8e2d9459e2e7b08233dd48, type: 2}
   defaultSprite: {fileID: -7480405058247820804, guid: 4a79a7dba52e78543b4f4d2116f4db65, type: 3}
-  sickColor: {r: 0.37254903, g: 0.6039216, b: 0.39215687, a: 1}
+  sickColor: {r: 1, g: 1, b: 1, a: 1}
   curedColor: {r: 1, g: 1, b: 1, a: 1}
   altColor: {r: 1, g: 1, b: 1, a: 1}
   scale: {x: 6.5, y: 6.5, z: 1}
