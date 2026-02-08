@@ -29,7 +29,8 @@ public class DialogueManager : MonoBehaviour
         story.BindExternalFunction("LoadMinigame", (string name) => gameManager.LoadMinigameScene(name));
         story.BindExternalFunction("Stress", (float val) => gameManager.stressManager.ModifyStress(val));
         story.BindExternalFunction("EndPatient", () => gameManager.OnEndPatient());
-
+        story.BindExternalFunction("WinGame", () => GameManager.Instance.WinGame());
+        
         continueButton.onClick.AddListener(()=>RefreshUI());
         RefreshUI();
     }

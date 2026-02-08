@@ -3,6 +3,7 @@ EXTERNAL Transform(form)
 EXTERNAL LoadMinigame(sceneName)
 EXTERNAL Stress(amount)
 EXTERNAL EndPatient()
+EXTERNAL WinGame()
 
 -> Start
 
@@ -148,4 +149,5 @@ Calico: "Is it safe to come out now?"
 Calico: "The walls are down. Hi. I'm Callie."
 ~ EndPatient()
 The ward is quiet now. Shift's over. Maybe I helped them... maybe they helped me.
+~ WinGame()
 -> END
